@@ -1,0 +1,21 @@
+.containerMainBurgerIngredients {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.titleBurgerIngredients {
+    text-align: start;
+    width: 100%;
+}
+.subContainerMainBurgerIngredients {
+    display: flex;
+    width: 600px;
+    align-items: center;
+    flex-direction: column;
+}
+.containerTab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
