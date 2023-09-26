@@ -1,8 +1,9 @@
 .containerMainBurgerIngredients {
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
 }
 .titleBurgerIngredients {
     text-align: start;
@@ -13,6 +14,17 @@
     width: 600px;
     align-items: center;
     flex-direction: column;
+}
+.containerIngredients {
+    height: 650px;
+    overflow-y: scroll;
+    width: 100%;
+}
+.ingredients {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    row-gap: 32px;
+    column-gap: 24px;
 }
 .containerTab {
     display: flex;

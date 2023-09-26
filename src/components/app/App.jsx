@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import {date} from "../../utils/data";
 import AppHeader from "../app-header/app-header";
@@ -11,7 +11,7 @@ const App = () => {
     <div className="App">
       <AppHeader/>
       <div className="containerBurger">
-          <BurgerIngredients data={date}/>
+          <BurgerIngredients data={date} />
           <BurgerConstructor data={date}/>
       </div>
 

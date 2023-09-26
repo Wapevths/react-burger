@@ -1,6 +1,6 @@
 .containerBurger {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   column-gap: 40px;
 }

@@ -1,7 +1,8 @@
 .mainContainerBurgerConstructor {
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
+    width: 100%;
     flex-direction: column;
 }
 .mainMapBurgerConstructor {
@@ -18,7 +19,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 600px;
     column-gap: 8px;
 }
 .firstConstructorElement, .lastConstructorElement {
@@ -33,10 +34,13 @@
     display: flex;
     padding: 0 16px;
     flex-direction: column;
-    width: 600px;
 }
 .containerPrice {
     display: flex;
     align-items: center;
     column-gap: 8px;
+}
+.containerPrice > svg {
+    width: 33px;
+    height: 33px;
 }

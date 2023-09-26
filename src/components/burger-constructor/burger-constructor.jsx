@@ -13,7 +13,6 @@ const BurgerConstructor = props => {
         if (props.data[0] !== undefined) {
             setFirstElement(props.data[0])
             setLastElement(props.data[props.data.length - 1])
-
         }
         props.data.forEach(x => {
             sum += x.price;
@@ -24,19 +23,19 @@ const BurgerConstructor = props => {
     return (
         <main className={styles.mainContainerBurgerConstructor}>
             <div className={styles.mainContainer}>
-                <ConstructorElement text={firstElement.text}
+                <ConstructorElement text={firstElement.name}
                                     price={firstElement.price}
                                     isLocked={true}
                                     type={'top'}
                                     extraClass={`mt-25 mb-4 ${styles.firstConstructorElement}`}
                                     thumbnail={firstElement.image}
                 />
-                <section className={styles.mainMapBurgerConstructor}>
+                <section className={`custom-scroll ${styles.mainMapBurgerConstructor}`}>
 
-                    {props.data.filter(item => item.type !== 'bun').map((item, index, array) => (
+                    {props.data.filter(item => item.type !== 'bun').map((item) => (
                         <div className={styles.containerBurgerConstructor} key={item.id}>
                             <DragIcon key={item.id} type={"primary"}/>
-                            <ConstructorElement text={item.text}
+                            <ConstructorElement text={item.name}
                                                 key={item.id}
                                                 thumbnail={item.image}
                                                 price={item.price}
@@ -45,7 +44,7 @@ const BurgerConstructor = props => {
                     ))}
 
                 </section>
-                <ConstructorElement text={lastElement.text}
+                <ConstructorElement text={lastElement.name}
                                     key={lastElement.id}
                                     thumbnail={lastElement.image}
                                     isLocked={true}
@@ -71,7 +70,7 @@ const BurgerConstructor = props => {
 };
 
 BurgerConstructor.propTypes = {
-
+    data: PropTypes.array.isRequired
 };
 
 export default BurgerConstructor;
