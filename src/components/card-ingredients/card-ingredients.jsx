@@ -9,10 +9,10 @@ const CardIngredients = (props) => {
         <div className={`${styles.containerCardIngredients}`}>
             <img src={props.ingredient.image} alt={props.ingredient.name}/>
             <div className={styles.containerPrice}>
-                <p className={`text text_type_digits-default`}>{props.ingredient.price}</p>
+                <span className={`text text_type_digits-default`}>{props.ingredient.price}</span>
                 <CurrencyIcon type={"primary"}/>
             </div>
-            <p className={`text text_type_main-default`}>{props.ingredient.name}</p>
+            <span className={`text text_type_main-default`}>{props.ingredient.name}</span>
             <Counter count={counter} size="default" extraClass={styles.cardCounterIngredients} />
         </div>
     );

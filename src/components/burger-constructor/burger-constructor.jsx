@@ -50,9 +50,9 @@ const BurgerConstructor = props => {
                 />
                 <section className={`pt-10 ${styles.containerTotalPrice}`}>
                     <div className={`pr-10 ${styles.containerPrice}`}>
-                        <p className="text text_type_digits-medium">
+                        <span className="text text_type_digits-medium">
                             {totalPrice}
-                        </p>
+                        </span>
                         <CurrencyIcon type={"primary"}/>
                     </div>
                     <Button htmlType="button" type="primary" size="medium">
