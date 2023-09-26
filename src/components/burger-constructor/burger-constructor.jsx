@@ -5,15 +5,13 @@ import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/
 
 const BurgerConstructor = props => {
     const [firstElement, setFirstElement] = useState([])
-    const [lastElement, setLastElement] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
 
     useEffect(() => {
         let sum = 0
-        if (props.data[0] !== undefined) {
-            setFirstElement(props.data[0])
-            setLastElement(props.data[props.data.length - 1])
-        }
+
+        props.data.find(item => item.type === 'bun' ? setFirstElement(item) : "")
+
         props.data.forEach(x => {
             sum += x.price;
         });
@@ -23,7 +21,7 @@ const BurgerConstructor = props => {
     return (
         <main className={styles.mainContainerBurgerConstructor}>
             <div className={styles.mainContainer}>
-                <ConstructorElement text={firstElement.name}
+                <ConstructorElement text={firstElement.name + ' (верх)'}
                                     price={firstElement.price}
                                     isLocked={true}
                                     type={'top'}
@@ -32,11 +30,10 @@ const BurgerConstructor = props => {
                 />
                 <section className={`custom-scroll ${styles.mainMapBurgerConstructor}`}>
 
-                    {props.data.filter(item => item.type !== 'bun').map((item) => (
-                        <div className={styles.containerBurgerConstructor} key={item.id}>
-                            <DragIcon key={item.id} type={"primary"}/>
+                    {props.data.filter(item => item.type !== 'bun').map((item, index) => (
+                        <div className={styles.containerBurgerConstructor} key={index}>
+                            <DragIcon type={"primary"}/>
                             <ConstructorElement text={item.name}
-                                                key={item.id}
                                                 thumbnail={item.image}
                                                 price={item.price}
                             />
@@ -44,13 +41,12 @@ const BurgerConstructor = props => {
                     ))}
 
                 </section>
-                <ConstructorElement text={lastElement.name}
-                                    key={lastElement.id}
-                                    thumbnail={lastElement.image}
+                <ConstructorElement text={firstElement.name  + ' (низ)'}
+                                    thumbnail={firstElement.image}
                                     isLocked={true}
                                     type={'bottom'}
                                     extraClass={`mt-4 ${styles.lastConstructorElement}`}
-                                    price={lastElement.price}
+                                    price={firstElement.price}
                 />
                 <section className={`pt-10 ${styles.containerTotalPrice}`}>
                     <div className={`pr-10 ${styles.containerPrice}`}>

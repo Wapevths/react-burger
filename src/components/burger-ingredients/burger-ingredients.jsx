@@ -39,11 +39,9 @@ const BurgerIngredients = (props) => {
                                {ingredient.name}
                            </h2>
                             <section className={`${styles.ingredients}`}>
-                                {props.data.filter(item => item.type === ingredient.type).map((item) => (
-                                    <CardIngredients name={item.name}
-                                                     price={item.price}
-                                                     type={item.type}
-                                                     image={item.image}
+                                {props.data.filter(item => item.type === ingredient.type).map((item, index) => (
+                                    <CardIngredients ingredient={item}
+                                                     key={index}
                                     />
                                 ))}
                             </section>

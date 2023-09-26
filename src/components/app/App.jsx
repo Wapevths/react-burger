@@ -10,10 +10,10 @@ const App = () => {
     return (
     <div className="App">
       <AppHeader/>
-      <div className="containerBurger">
+      <main className="containerBurger">
           <BurgerIngredients data={date} />
           <BurgerConstructor data={date}/>
-      </div>
+      </main>
 
     </div>
   );
