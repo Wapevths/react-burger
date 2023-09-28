@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './order-details.module.css'
-import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-
+import CheckImage from '../../images/graphics.svg'
 
 const OrderDetails = () => {
     return (
@@ -14,8 +13,7 @@ const OrderDetails = () => {
                 идентификатор заказа
             </span>
             <div className={`pt-15 pb-15 ${styles.containerOrderDetailsImage}`}>
-                {/*?*/}
-                <CheckMarkIcon type="primary"/>
+                <img className={styles.checkImage} src={CheckImage} alt="check"/>
             </div>
 
             <span className={`text text_type_main-default pb-2`}>
