@@ -4,11 +4,13 @@ import styles from './burger-constructor.module.css'
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import {useModal} from "../../hooks/useModal";
 
 const BurgerConstructor = props => {
     const [firstElement, setFirstElement] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
-    const [modalStatus, setModalStatus] = useState(false)
+    const { isModalOpen, openModal, closeModal } = useModal();
+
 
     useEffect(() => {
         let sum = 0
@@ -58,13 +60,13 @@ const BurgerConstructor = props => {
                         </span>
                         <CurrencyIcon type={"primary"}/>
                     </div>
-                    <Button htmlType="button" onClick={() => setModalStatus(true)} type="primary" size="medium">
+                    <Button htmlType="button" onClick={openModal} type="primary" size="medium">
                         Оформить заказ
                     </Button>
                 </section>
             </div>
-            {modalStatus && (
-                <Modal isTitle={false} setActive={e => setModalStatus(e)}>
+            {isModalOpen && (
+                <Modal title="" setActive={closeModal}>
                     <OrderDetails/>
                 </Modal>
             )}

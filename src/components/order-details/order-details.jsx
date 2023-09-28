@@ -27,8 +27,5 @@ const OrderDetails = () => {
     );
 };
 
-OrderDetails.propTypes = {
-
-};
 
 export default OrderDetails;

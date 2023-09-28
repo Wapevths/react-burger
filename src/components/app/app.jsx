@@ -8,9 +8,14 @@ const App = () => {
     const [date, setDate] = useState([])
     useEffect(() => {
         fetch('https://norma.nomoreparties.space/api/ingredients')
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка ${res.status}`);
+            })
             .then(res => setDate(res.data))
-            .catch(err => console.log(err))
+            .catch(console.error)
     }, []);
 
     return (

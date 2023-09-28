@@ -5,12 +5,13 @@ import CardIngredients from "../card-ingredients/card-ingredients";
 import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import {useModal} from "../../hooks/useModal";
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] = useState('Булки')
 
     const [selectIngredient, setSelectIngredient] = useState({})
-    const [modalStatus, setModalStatus] = useState(false)
+    const { isModalOpen, openModal, closeModal } = useModal();
 
     const ingredients = [
         {name: 'Булки', type: 'bun'},
@@ -27,7 +28,7 @@ const BurgerIngredients = (props) => {
     };
     const getIngredient = (ingredient) => {
         setSelectIngredient(ingredient)
-        setModalStatus(true)
+        openModal()
     }
     return (
         <main className={`${styles.containerMainBurgerIngredients} pt-10`}>
@@ -52,7 +53,7 @@ const BurgerIngredients = (props) => {
                                 {props.data.filter(item => item.type === ingredient.type).map((item, index) => (
                                     <CardIngredients ingredient={item}
                                                      getIngredient={getIngredient}
-                                                     key={index}
+                                                     key={item._id}
                                     />
                                 ))}
                             </section>
@@ -60,8 +61,8 @@ const BurgerIngredients = (props) => {
                     ))}
                 </section>
             </div>
-            {modalStatus && (
-                <Modal isTitle={true} setActive={e => setModalStatus(e)}>
+            {isModalOpen && (
+                <Modal title="Детали ингредиента" setActive={closeModal}>
                     <IngredientDetails data={selectIngredient}/>
                 </Modal>
             )}

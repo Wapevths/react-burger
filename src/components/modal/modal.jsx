@@ -6,33 +6,31 @@ import styles from './modal.module.css'
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const Modal = props => {
-    let element = window.document.getElementById('modal')
-        const escFunction = useCallback((event) => {
-                if (event.key === "Escape") {
-                    props.setActive(false)
-                }
-        }, []);
+    const element = window.document.getElementById('modal')
+    const escFunction = (event) => {
+        if (event.key === "Escape") {
+            handleCloseModal()
+        }
+    }
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction, false);
+        return () => {
+            document.removeEventListener("keydown", escFunction, false);
+        };
+    }, []);
 
-        useEffect(() => {
-            document.addEventListener("keydown", escFunction, false);
-
-            return () => {
-                document.removeEventListener("keydown", escFunction, false);
-            };
-        }, []);
-
-
+    const handleCloseModal = () => {
+        props.setActive(false)
+    }
 
     return createPortal(
-        <ModalOverlay onClose={() => props.setActive(false)}>
+        <ModalOverlay onClose={handleCloseModal}>
             <section className={styles.containerModal} onClick={event => event.stopPropagation()}>
                 <div className={styles.containerButtonCloseTitle}>
                         <h2 className={`text text_type_main-large ${styles.titleIngredient}`}>
-                            {props.isTitle && (
-                                "Детали ингредиента"
-                            )}
+                            {props.title}
                         </h2>
-                    <button className={styles.closeButton} onClick={() => props.setActive(false)}>
+                    <button className={styles.closeButton} onClick={handleCloseModal}>
                         <CloseIcon type="primary"/>
                     </button>
                 </div>
@@ -46,7 +44,7 @@ const Modal = props => {
 
 Modal.propTypes = {
     children: PropTypes.element,
-    isTitle: PropTypes.bool.isRequired,
+    title: PropTypes.string,
     setActive: PropTypes.func.isRequired
 };
 
