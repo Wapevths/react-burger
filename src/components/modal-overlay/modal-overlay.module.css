@@ -1,0 +1,13 @@
+.containerModalOverlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}

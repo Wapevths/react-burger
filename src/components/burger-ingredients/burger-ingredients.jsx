@@ -3,9 +3,15 @@ import styles from './burger-ingredients.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import CardIngredients from "../card-ingredients/card-ingredients";
 import PropTypes from "prop-types";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] = useState('Булки')
+
+    const [selectIngredient, setSelectIngredient] = useState({})
+    const [modalStatus, setModalStatus] = useState(false)
+
     const ingredients = [
         {name: 'Булки', type: 'bun'},
         {name: 'Соусы', type: 'sauce'},
@@ -19,6 +25,10 @@ const BurgerIngredients = (props) => {
             element.scrollIntoView({ behavior: "smooth" });
         }
     };
+    const getIngredient = (ingredient) => {
+        setSelectIngredient(ingredient)
+        setModalStatus(true)
+    }
     return (
         <main className={`${styles.containerMainBurgerIngredients} pt-10`}>
             <div className={styles.subContainerMainBurgerIngredients}>
@@ -41,16 +51,21 @@ const BurgerIngredients = (props) => {
                             <section className={`${styles.ingredients}`}>
                                 {props.data.filter(item => item.type === ingredient.type).map((item, index) => (
                                     <CardIngredients ingredient={item}
+                                                     getIngredient={getIngredient}
                                                      key={index}
                                     />
                                 ))}
                             </section>
-
-
                         </div>
                     ))}
                 </section>
             </div>
+            {modalStatus && (
+                <Modal isTitle={true} setActive={e => setModalStatus(e)}>
+                    <IngredientDetails data={selectIngredient}/>
+                </Modal>
+            )}
+
         </main>
     );
 };

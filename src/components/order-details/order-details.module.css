@@ -1,0 +1,23 @@
+.containerOrderDetails {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.containerOrderDetailsImage > svg {
+    width: 48px;
+    height: 48px;
+}
+.containerOrderDetailsImage {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.orderDetailsWaitReady {
+    color: #8585AD;
+    text-align: center;
+}
+.containerTitleOrderDetails {
+    text-shadow: 0px 4px 32px rgba(51, 51, 255, 0.50), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 0px 16px rgba(51, 51, 255, 0.25);
+}

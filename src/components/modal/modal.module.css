@@ -1,0 +1,24 @@
+.containerModal {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid rgba(76, 76, 255, 0.20);
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 4px 8px 0px rgba(0, 0, 0, 0.04), 0px 16px 24px 0px rgba(0, 0, 0, 0.04), 0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+    background: #1C1C21;
+    border-radius: 40px;
+    padding: 60px 40px;
+}
+.closeButton {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.containerButtonCloseTitle {
+    display: flex;
+    align-items: center;
+    column-gap: 36px;
+    justify-content: space-between;
+}
+.titleIngredient {
+    width: 580px;
+}
