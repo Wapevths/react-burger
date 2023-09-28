@@ -4,7 +4,7 @@ import styles from './modal-overlay.module.css'
 const ModalOverlay = props => {
 
     return (
-        <section className={styles.containerModalOverlay} onClick={props.close}>
+        <section className={styles.containerModalOverlay} onClick={props.onClose}>
             {props.children}
         </section>
 
@@ -13,7 +13,7 @@ const ModalOverlay = props => {
 
 ModalOverlay.propTypes = {
     children: PropTypes.element,
-    close: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired
 };
 
 export default ModalOverlay;

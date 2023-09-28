@@ -24,7 +24,7 @@ const Modal = props => {
 
 
     return createPortal(
-        <ModalOverlay close={() => props.setActive(false)}>
+        <ModalOverlay onClose={() => props.setActive(false)}>
             <section className={styles.containerModal} onClick={event => event.stopPropagation()}>
                 <div className={styles.containerButtonCloseTitle}>
                         <h2 className={`text text_type_main-large ${styles.titleIngredient}`}>
