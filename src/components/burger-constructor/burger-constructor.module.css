@@ -1,0 +1,46 @@
+.mainContainerBurgerConstructor {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+.mainMapBurgerConstructor {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 16px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 450px;
+
+}
+.containerBurgerConstructor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    column-gap: 8px;
+}
+.firstConstructorElement, .lastConstructorElement {
+    margin-left: 40px;
+}
+.containerTotalPrice {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.mainContainer {
+    display: flex;
+    padding: 0 16px;
+    flex-direction: column;
+}
+.containerPrice {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+.containerPrice > svg {
+    width: 33px;
+    height: 33px;
+}

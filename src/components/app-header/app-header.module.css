@@ -1,0 +1,23 @@
+.navigateContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background: #1C1C21;
+}
+.containerButton {
+    display: flex;
+    column-gap: 8px;
+}
+.containerIconText {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    padding: 16px 20px;
+    justify-content: center;
+}
+.baseText {
+    color: #F2F2F3;
+}
+.secondaryText {
+    color: #8585AD;
+}
