@@ -2,11 +2,14 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import styles from './card-ingredients.module.css'
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {useDispatch} from "react-redux";
 const CardIngredients = (props) => {
     const [counter, setCounter] = useState(1)
+    const dispatch = useDispatch()
     const getModal = () => {
         props.getIngredient(props.ingredient)
     }
+
     return (
         <div className={`${styles.containerCardIngredients}`} onClick={getModal}>
             <img src={props.ingredient.image} alt={props.ingredient.name}/>

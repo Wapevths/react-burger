@@ -5,24 +5,34 @@ import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {useModal} from "../../hooks/useModal";
+import {useDispatch, useSelector} from "react-redux";
+import {getConstructorIngredients} from "../../services/ingredients/selectors";
+import {DELETE_INGREDIENT} from "../../services/ingredients/actions";
 
 const BurgerConstructor = props => {
     const [firstElement, setFirstElement] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
     const { isModalOpen, openModal, closeModal } = useModal();
 
+    const data = useSelector(getConstructorIngredients)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         let sum = 0
 
-        props.data.find(item => item.type === 'bun' ? setFirstElement(item) : "")
+        data.find(item => item.type === 'bun' ? setFirstElement(item) : "")
 
-        props.data.forEach(x => {
+        data.forEach(x => {
             sum += x.price;
         });
         setTotalPrice(sum)
 
-    }, [props])
+    }, [data])
+
+    const deleteItem = (uniqId) => {
+        dispatch({type: DELETE_INGREDIENT, payload: uniqId})
+    }
+
     return (
         <main className={styles.mainContainerBurgerConstructor}>
             <div className={styles.mainContainer}>
@@ -35,12 +45,13 @@ const BurgerConstructor = props => {
                 />
                 <section className={`custom-scroll ${styles.mainMapBurgerConstructor}`}>
 
-                    {props.data.filter(item => item.type !== 'bun').map((item, index) => (
+                    {data.filter(item => item.type !== 'bun').map((item, index) => (
                         <div className={styles.containerBurgerConstructor} key={index}>
                             <DragIcon type={"primary"}/>
                             <ConstructorElement text={item.name}
                                                 thumbnail={item.image}
                                                 price={item.price}
+                                                handleClose={() => deleteItem(item.uniqId)}
                             />
                         </div>
                     ))}
@@ -75,7 +86,6 @@ const BurgerConstructor = props => {
 };
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.array.isRequired
 };
 
 export default BurgerConstructor;

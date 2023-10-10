@@ -2,16 +2,19 @@ import React, {useEffect, useState} from 'react';
 import styles from './burger-ingredients.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import CardIngredients from "../card-ingredients/card-ingredients";
-import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {useModal} from "../../hooks/useModal";
+import {useDispatch, useSelector} from "react-redux";
+import {addIngredient} from "../../services/ingredients/actions";
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] = useState('Булки')
 
+    const data = useSelector(state => state.ingredients.ingredients)
     const [selectIngredient, setSelectIngredient] = useState({})
     const { isModalOpen, openModal, closeModal } = useModal();
+    const dispatch = useDispatch()
 
     const ingredients = [
         {name: 'Булки', type: 'bun'},
@@ -26,10 +29,16 @@ const BurgerIngredients = (props) => {
             element.scrollIntoView({ behavior: "smooth" });
         }
     };
-    const getIngredient = (ingredient) => {
-        setSelectIngredient(ingredient)
+
+    // onDrop
+    // dispatch(addIngredient(ingredientObj))
+    const getIngredient = (ingredientObj) => {
         openModal()
+        dispatch(addIngredient(ingredientObj))
+        setSelectIngredient(ingredientObj)
     }
+
+
     return (
         <main className={`${styles.containerMainBurgerIngredients} pt-10`}>
             <div className={styles.subContainerMainBurgerIngredients}>
@@ -50,7 +59,7 @@ const BurgerIngredients = (props) => {
                                {ingredient.name}
                            </h2>
                             <section className={`${styles.ingredients}`}>
-                                {props.data.filter(item => item.type === ingredient.type).map((item, index) => (
+                                {data.filter(item => item.type === ingredient.type).map((item, index) => (
                                     <CardIngredients ingredient={item}
                                                      getIngredient={getIngredient}
                                                      key={item._id}
@@ -71,7 +80,6 @@ const BurgerIngredients = (props) => {
     );
 };
 BurgerIngredients.propTypes = {
-    data: PropTypes.array.isRequired
 };
 
 export default BurgerIngredients;
