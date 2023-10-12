@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './burger-ingredients.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import CardIngredients from "../card-ingredients/card-ingredients";
@@ -17,7 +17,6 @@ const BurgerIngredients = (props) => {
     const {isModalOpen, openModal, closeModal} = useModal();
     const dispatch = useDispatch()
 
-    const containerRef = useRef(null);
 
     const ingredients = [
         {name: 'Булки', type: 'bun'},
@@ -25,21 +24,21 @@ const BurgerIngredients = (props) => {
         {name: 'Начинки', type: 'main'}
     ]
 
-    const setTab = (tab) => {
-        setCurrent(tab);
-        const element = document.getElementById(tab);
-        if (element) {
-            element.scrollIntoView({behavior: "smooth"});
-        }
-    };
+    // const setTab = (tab) => {
+    //     setCurrent(tab);
+    //     const element = document.getElementById(tab);
+    //     if (element) {
+    //         element.scrollIntoView({behavior: "smooth"});
+    //     }
+    // };
 
-    const [bunRef, bunInView, bunEntry] = useInView({
+    const [bunRef, bunInView] = useInView({
         threshold: 0.6,
     });
-    const [mainRef, mainInView, mainEntry] = useInView({
+    const [mainRef, mainInView] = useInView({
         threshold: 0.4,
     });
-    const [sauceRef, sauceInView, sauceEntry] = useInView({
+    const [sauceRef, sauceInView] = useInView({
         threshold: 1,
     });
 
@@ -47,10 +46,6 @@ const BurgerIngredients = (props) => {
         openModal()
         dispatch({type: GET_SELECT_INGREDIENT, payload: ingredientObj})
     }
-
-
-
-
 
     useEffect(() => {
         if (mainInView) {
@@ -60,7 +55,6 @@ const BurgerIngredients = (props) => {
 
     useEffect(() => {
         if (sauceInView) {
-            console.log(mainEntry)
             setCurrent('Соусы')
         }
     }, [sauceInView]);
@@ -90,7 +84,7 @@ const BurgerIngredients = (props) => {
                             Булки
                         </h2>
                         <section className={`${styles.ingredients}`}>
-                            {data.filter(item => item.type === 'bun').map((item, index) => (
+                            {data.filter(item => item.type === 'bun').map((item) => (
                                 <CardIngredients ingredient={item}
                                                  getIngredient={getIngredient}
                                                  key={item._id}
@@ -103,7 +97,7 @@ const BurgerIngredients = (props) => {
                             Соусы
                         </h2>
                         <section className={`${styles.ingredients}`}>
-                            {data.filter(item => item.type === 'sauce').map((item, index) => (
+                            {data.filter(item => item.type === 'sauce').map((item) => (
                                 <CardIngredients ingredient={item}
                                                  getIngredient={getIngredient}
                                                  key={item._id}
@@ -116,7 +110,7 @@ const BurgerIngredients = (props) => {
                             Начинки
                         </h2>
                         <section className={`${styles.ingredients}`}>
-                            {data.filter(item => item.type === 'main').map((item, index) => (
+                            {data.filter(item => item.type === 'main').map((item) => (
                                 <CardIngredients ingredient={item}
                                                  getIngredient={getIngredient}
                                                  key={item._id}
