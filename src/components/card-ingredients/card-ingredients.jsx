@@ -37,7 +37,12 @@ const CardIngredients = (props) => {
                 <CurrencyIcon type={"primary"}/>
             </div>
             <span className={`text text_type_main-default ${styles.nameIngredient}`}>{props.ingredient.name}</span>
-            <Counter count={counterIngredient} size="default" extraClass={styles.cardCounterIngredients} />
+            {counterIngredient >= 1 && (
+                <Counter count={counterIngredient}
+                         size="default"
+                         extraClass={styles.cardCounterIngredients}
+                />
+            )}
         </div>
 );
 };

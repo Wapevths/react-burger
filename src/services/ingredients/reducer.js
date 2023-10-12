@@ -56,7 +56,6 @@ export default (state = initialState, action) => {
                     break
                 }
             }
-            console.log(bun.filter(item => item.type) )
             return {...state, constructorIngredients: newArray}
         }
 

@@ -16,6 +16,7 @@ import {
 } from "../../services/ingredients/actions";
 import {useDrag, useDrop} from "react-dnd";
 import {store} from "../../services/store";
+import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list";
 
 const BurgerConstructor = props => {
     const [firstElement, setFirstElement] = useState([])
@@ -25,7 +26,6 @@ const BurgerConstructor = props => {
     const data = useSelector(getConstructorIngredients)
     const dispatch = useDispatch()
 
-    const ref = useRef(null)
     useEffect(() => {
         let sum = 0
 
@@ -72,29 +72,8 @@ const BurgerConstructor = props => {
             dispatch(addIngredient(ingredientObj))
         }
     })
+    const moveCard = () => {
 
-    const [{isDragging}, drag] = useDrag({
-        type: 'moveIngredient',
-        item: (id, item) => {
-            return {id, item}
-        },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging()
-        })
-    })
-
-    const [, drop] = useDrop({
-        accept: 'moveIngredient',
-        hover: (item, monitor) => {
-
-        }
-    })
-    const opacity = isDragging ? 0 : 1
-    drag(drop(ref))
-
-    const moveIngredient = (dragIndex, hoverIndex) => {
-        console.log(dragIndex)
-        console.log(hoverIndex)
     }
     return (
         <main className={styles.mainContainerBurgerConstructor} ref={dropRef}>
@@ -114,19 +93,17 @@ const BurgerConstructor = props => {
                             добавьте булку
                         </div>
                     )}
-
+                    {/*deleteItem(item.uniqId)*/}
                     <section className={`custom-scroll ${styles.mainMapBurgerConstructor}`}>
 
                         {data.filter(item => item.type !== 'bun').map((item, index) => (
-                            <div ref={ref} onClick={moveIngredient(item.uniqId, index)} style={{opacity}}
-                                 className={styles.containerBurgerConstructor} key={index}>
-                                <DragIcon type={"primary"}/>
-                                <ConstructorElement text={item.name}
-                                                    thumbnail={item.image}
-                                                    price={item.price}
-                                                    handleClose={() => deleteItem(item.uniqId)}
-                                />
-                            </div>
+                            <BurgerConstructorList key={index}
+                                                   data={item}
+                                                   index={index}
+                                                   id={item.uniqId}
+                                                   moveCard={moveCard}
+                                                   deleteItem={deleteItem}
+                            />
                         ))}
 
                     </section>

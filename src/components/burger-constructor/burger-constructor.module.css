@@ -15,13 +15,6 @@
     height: 450px;
 }
 
-.containerBurgerConstructor {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 600px;
-    column-gap: 8px;
-}
 .firstConstructorElement, .lastConstructorElement {
     margin-left: 40px;
 }
