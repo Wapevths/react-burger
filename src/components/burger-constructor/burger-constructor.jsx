@@ -7,16 +7,17 @@ import OrderDetails from "../order-details/order-details";
 import {useModal} from "../../hooks/useModal";
 import {useDispatch, useSelector} from "react-redux";
 import {getConstructorIngredients} from "../../services/ingredients/selectors";
+import { useDrop} from "react-dnd";
+import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list";
 import {
+    ADD_INGREDIENT,
     addIngredient,
     DELETE_INGREDIENT,
     POST_ORDER_INGREDIENTS_ERROR,
     POST_ORDER_INGREDIENTS_REQUEST,
-    POST_ORDER_INGREDIENTS_SUCCESS,
+    POST_ORDER_INGREDIENTS_SUCCESS, SORT_INGREDIENT,
 } from "../../services/ingredients/actions";
-import {useDrag, useDrop} from "react-dnd";
-import {store} from "../../services/store";
-import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list";
+
 
 const BurgerConstructor = props => {
     const [firstElement, setFirstElement] = useState([])
@@ -72,8 +73,13 @@ const BurgerConstructor = props => {
             dispatch(addIngredient(ingredientObj))
         }
     })
-    const moveCard = () => {
-
+    const moveCard = (dragIndex, hoverIndex) => {
+        const dragCard = data[dragIndex]
+        const newCards = [...data]
+        newCards.splice(dragIndex, 1)
+        newCards.splice(hoverIndex, 0, dragCard)
+        console.log(newCards)
+        dispatch({type: SORT_INGREDIENT, payload: newCards})
     }
     return (
         <main className={styles.mainContainerBurgerConstructor} ref={dropRef}>

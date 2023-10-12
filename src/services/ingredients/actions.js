@@ -10,6 +10,7 @@ export const POST_ORDER_INGREDIENTS_ERROR = 'POST_ORDER_INGREDIENTS_ERROR'
 export const ADD_INGREDIENT = 'ADD_INGREDIENT'
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT'
 export const GET_SELECT_INGREDIENT = 'GET_SELECT_INGREDIENT'
+export const SORT_INGREDIENT = 'SORT_INGREDIENT'
 export const addIngredient = (ingredientObj) => ({
     type: ADD_INGREDIENT,
     payload: {...ingredientObj, uniqId: nanoid()}

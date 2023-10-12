@@ -38,22 +38,18 @@ const BurgerConstructorList = props => {
             item.index = hoverIndex
         },
     })
-    const [{ isDragging }, drag] = useDrag({
+    const [, drag] = useDrag({
         type: 'moveCardConstructor',
         item: () => {
             return { id, index }
         },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
+
     })
-    const opacity = isDragging ? 0 : 1
     drag(drop(ref))
 
     return (
         <div className={styles.containerBurgerConstructor}
              data-handler-id={handlerId}
-             style={{opacity }}
              ref={ref}
 
         >

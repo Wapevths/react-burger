@@ -18,7 +18,7 @@ const CardIngredients = (props) => {
         }
     }
 
-    const [ { isDrag} , dragRef] = useDrag({
+    const [  , dragRef] = useDrag({
         type: 'ingredient',
         item: props.ingredient,
         collect: monitor => ({

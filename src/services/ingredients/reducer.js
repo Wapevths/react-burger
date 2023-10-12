@@ -7,6 +7,7 @@ import {
     POST_ORDER_INGREDIENTS_ERROR,
     ADD_INGREDIENT,
     DELETE_INGREDIENT,
+    SORT_INGREDIENT,
     GET_SELECT_INGREDIENT,
 } from './actions'
 
@@ -57,6 +58,10 @@ export default (state = initialState, action) => {
                 }
             }
             return {...state, constructorIngredients: newArray}
+        }
+
+        case SORT_INGREDIENT: {
+            return {...state, constructorIngredients: action.payload}
         }
 
         case GET_SELECT_INGREDIENT: {
