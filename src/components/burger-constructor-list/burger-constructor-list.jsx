@@ -34,7 +34,7 @@ const BurgerConstructorList = props => {
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return
             }
-            moveCard(dragIndex, hoverIndex)
+            moveCard(dragIndex, hoverIndex, data)
             item.index = hoverIndex
         },
     })

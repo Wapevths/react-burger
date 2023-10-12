@@ -7,7 +7,7 @@ import OrderDetails from "../order-details/order-details";
 import {useModal} from "../../hooks/useModal";
 import {useDispatch, useSelector} from "react-redux";
 import {getConstructorIngredients} from "../../services/ingredients/selectors";
-import { useDrop} from "react-dnd";
+import {useDrop} from "react-dnd";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list";
 import {
     ADD_INGREDIENT,
@@ -33,7 +33,11 @@ const BurgerConstructor = props => {
         data.find(item => item.type === 'bun' ? setFirstElement(item) : "")
 
         data.forEach(x => {
-            sum += x.price;
+            if (x.type === 'bun') {
+                sum += (x.price * 2)
+            } else {
+                sum += x.price;
+            }
         });
         setTotalPrice(sum)
 
@@ -58,7 +62,7 @@ const BurgerConstructor = props => {
             )
             .then((res) => {
                 console.log(res)
-                dispatch({type:POST_ORDER_INGREDIENTS_SUCCESS, payload: res})
+                dispatch({type: POST_ORDER_INGREDIENTS_SUCCESS, payload: res})
                 openModal();
             })
             .catch((err) => {
@@ -74,12 +78,15 @@ const BurgerConstructor = props => {
         }
     })
     const moveCard = (dragIndex, hoverIndex) => {
-        const dragCard = data[dragIndex]
-        const newCards = [...data]
+        const arrayNoBun = data.filter(item => item.type !== 'bun')
+        const findBun = data.filter(item => item.type === 'bun')
+        const dragCard = arrayNoBun[dragIndex]
+        const newCards = [...arrayNoBun]
         newCards.splice(dragIndex, 1)
         newCards.splice(hoverIndex, 0, dragCard)
-        console.log(newCards)
+        newCards.push(...findBun)
         dispatch({type: SORT_INGREDIENT, payload: newCards})
+
     }
     return (
         <main className={styles.mainContainerBurgerConstructor} ref={dropRef}>
@@ -103,7 +110,7 @@ const BurgerConstructor = props => {
                     <section className={`custom-scroll ${styles.mainMapBurgerConstructor}`}>
 
                         {data.filter(item => item.type !== 'bun').map((item, index) => (
-                            <BurgerConstructorList key={index}
+                            <BurgerConstructorList key={item.uniqId}
                                                    data={item}
                                                    index={index}
                                                    id={item.uniqId}

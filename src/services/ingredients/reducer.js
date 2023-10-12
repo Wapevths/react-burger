@@ -61,6 +61,7 @@ export default (state = initialState, action) => {
         }
 
         case SORT_INGREDIENT: {
+            console.log(action.payload)
             return {...state, constructorIngredients: action.payload}
         }
 
