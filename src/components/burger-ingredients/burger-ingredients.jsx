@@ -6,13 +6,13 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {useModal} from "../../hooks/useModal";
 import {useDispatch, useSelector} from "react-redux";
-import {addIngredient} from "../../services/ingredients/actions";
+import { GET_SELECT_INGREDIENT} from "../../services/ingredients/actions";
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] = useState('Булки')
 
     const data = useSelector(state => state.ingredients.ingredients)
-    const [selectIngredient, setSelectIngredient] = useState({})
+    const selectIngredient = useSelector(state => state.ingredients.selectIngredient)
     const { isModalOpen, openModal, closeModal } = useModal();
     const dispatch = useDispatch()
 
@@ -30,12 +30,10 @@ const BurgerIngredients = (props) => {
         }
     };
 
-    // onDrop
-    // dispatch(addIngredient(ingredientObj))
+
     const getIngredient = (ingredientObj) => {
         openModal()
-        dispatch(addIngredient(ingredientObj))
-        setSelectIngredient(ingredientObj)
+        dispatch({type: GET_SELECT_INGREDIENT, payload: ingredientObj})
     }
 
 
