@@ -64,7 +64,11 @@ const BurgerConstructorList = props => {
 };
 
 BurgerConstructorList.propTypes = {
-
+    data: PropTypes.object.isRequired,
+    deleteItem: PropTypes.func.isRequired,
+    moveCard: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
 };
 
 export default BurgerConstructorList;

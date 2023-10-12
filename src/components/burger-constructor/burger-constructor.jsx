@@ -86,8 +86,8 @@ const BurgerConstructor = props => {
         newCards.splice(hoverIndex, 0, dragCard)
         newCards.push(...findBun)
         dispatch({type: SORT_INGREDIENT, payload: newCards})
-
     }
+
     return (
         <main className={styles.mainContainerBurgerConstructor} ref={dropRef}>
             {data.length >= 1 ? (
@@ -171,6 +171,5 @@ const BurgerConstructor = props => {
     );
 };
 
-BurgerConstructor.propTypes = {};
 
 export default BurgerConstructor;

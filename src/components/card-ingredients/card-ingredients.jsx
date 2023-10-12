@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './card-ingredients.module.css'
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {getConstructorIngredients} from "../../services/ingredients/selectors";
 const CardIngredients = (props) => {
@@ -48,7 +48,8 @@ const CardIngredients = (props) => {
 };
 
 CardIngredients.propTypes = {
-    ingredient: PropTypes.object.isRequired
+    ingredient: PropTypes.object.isRequired,
+    getIngredient: PropTypes.func.isRequired
 };
 
 export default CardIngredients;

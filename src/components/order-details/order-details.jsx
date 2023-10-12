@@ -27,5 +27,8 @@ const OrderDetails = (props) => {
     );
 };
 
+OrderDetails.propTypes = {
+    orderConstructor: PropTypes.object.isRequired
+};
 
 export default OrderDetails;
