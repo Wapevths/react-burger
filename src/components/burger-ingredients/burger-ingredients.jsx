@@ -10,7 +10,7 @@ import {GET_SELECT_INGREDIENT} from "../../services/ingredients/actions";
 import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = (props) => {
-    const [current, setCurrent] = useState()
+    const [current, setCurrent] = useState('Булки')
 
     const data = useSelector(state => state.ingredients.ingredients)
     const selectIngredient = useSelector(state => state.ingredients.selectIngredient)
@@ -33,17 +33,14 @@ const BurgerIngredients = (props) => {
         }
     };
 
-    const {bunRef, bunInView, bunEntry} = useInView({
+    const [bunRef, bunInView, bunEntry] = useInView({
+        threshold: 0.6,
+    });
+    const [mainRef, mainInView, mainEntry] = useInView({
+        threshold: 0.4,
+    });
+    const [sauceRef, sauceInView, sauceEntry] = useInView({
         threshold: 1,
-        root: document.querySelector('#bun')
-    });
-    const {mainRef, mainInView, mainEntry} = useInView({
-        threshold: 0,
-        root: document.querySelector('#sauce')
-    });
-    const {sauceRef, sauceInView, sauceEntry} = useInView({
-        threshold: 0.5,
-        root: document.querySelector('#sauce')
     });
 
     const getIngredient = (ingredientObj) => {
@@ -51,31 +48,28 @@ const BurgerIngredients = (props) => {
         dispatch({type: GET_SELECT_INGREDIENT, payload: ingredientObj})
     }
 
-    useEffect(() => {
-        if (bunInView) {
-            setCurrent('Булки')
-            console.log(123)
-        } else {
-            console.log('no Булки')
-        }
-    }, [bunInView]);
-    useEffect(() => {
-        if (sauceInView) {
-            setCurrent('Соусы')
-            console.log(123)
-        } else {
-            console.log('end Соусы')
-        }
-    }, [sauceInView]);
+
+
+
+
     useEffect(() => {
         if (mainInView) {
             setCurrent('Начинки')
-            console.log(123)
-        } else {
-            console.log('end Начинки')
         }
     }, [mainInView]);
 
+    useEffect(() => {
+        if (sauceInView) {
+            console.log(mainEntry)
+            setCurrent('Соусы')
+        }
+    }, [sauceInView]);
+
+    useEffect(() => {
+        if (bunInView) {
+            setCurrent('Булки')
+        }
+    }, [bunInView]);
 
     return (
         <main className={`${styles.containerMainBurgerIngredients} pt-10`}>
@@ -91,8 +85,8 @@ const BurgerIngredients = (props) => {
                     ))}
                 </section>
                 <section className={`custom-scroll ${styles.containerIngredients}`}>
-                    <div className={`pl-4 pb-10`} ref={bunRef} id='bun'>
-                        <h2 className={`pb-6 text text_type_main-medium`}  >
+                    <div className={`pl-4 pb-10`} ref={bunRef}>
+                        <h2 className={`pb-6 text text_type_main-medium`} >
                             Булки
                         </h2>
                         <section className={`${styles.ingredients}`}>
@@ -104,8 +98,8 @@ const BurgerIngredients = (props) => {
                             ))}
                         </section>
                     </div>
-                    <div className={`pl-4 pb-10`} ref={sauceRef} id='sauce'>
-                        <h2 className={`pb-6 text text_type_main-medium`} >
+                    <div className={`pl-4 pb-10`}  ref={sauceRef}>
+                        <h2 className={`pb-6 text text_type_main-medium`}>
                             Соусы
                         </h2>
                         <section className={`${styles.ingredients}`}>
