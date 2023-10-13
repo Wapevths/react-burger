@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
             return {...state, isLoadingOrderIngredients: true}
         }
         case POST_ORDER_INGREDIENTS_SUCCESS: {
-            return {...state, orderIngredients: action.payload, isLoadingOrderIngredients : false}
+            return {...state, orderIngredients: action.payload, constructorIngredients: [], isLoadingOrderIngredients : false}
         }
         case POST_ORDER_INGREDIENTS_ERROR: {
             return {...state, isLoadingOrderIngredients: false, orderIngredients: '', errorOrderIngredients: true}

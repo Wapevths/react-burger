@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css'
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {useModal} from "../../hooks/useModal";
@@ -10,12 +10,10 @@ import {getConstructorIngredients} from "../../services/ingredients/selectors";
 import {useDrop} from "react-dnd";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list";
 import {
-    ADD_INGREDIENT,
     addIngredient,
     DELETE_INGREDIENT,
-    POST_ORDER_INGREDIENTS_ERROR,
-    POST_ORDER_INGREDIENTS_REQUEST,
-    POST_ORDER_INGREDIENTS_SUCCESS, SORT_INGREDIENT,
+    postOrderIngredients,
+    SORT_INGREDIENT,
 } from "../../services/ingredients/actions";
 
 
@@ -24,6 +22,7 @@ const BurgerConstructor = props => {
     const [totalPrice, setTotalPrice] = useState(0)
     const {isModalOpen, openModal, closeModal} = useModal();
     const orderNumber = useSelector(state => state.ingredients.orderIngredients)
+    const isLoadingOrder = useSelector(state => state.ingredients.isLoadingOrderIngredients)
     const data = useSelector(getConstructorIngredients)
     const dispatch = useDispatch()
 
@@ -40,7 +39,9 @@ const BurgerConstructor = props => {
             }
         });
         setTotalPrice(sum)
-
+        if (data.length < 1) {
+            setFirstElement([])
+        }
     }, [data])
 
     const deleteItem = (uniqId) => {
@@ -49,26 +50,7 @@ const BurgerConstructor = props => {
 
     const postOrderIngredient = () => {
         const orderIDAllIngredient = data.map((item) => ({_id: item._id}))
-        dispatch({type: POST_ORDER_INGREDIENTS_REQUEST})
-        fetch('https://norma.nomoreparties.space/api/orders', {
-            method: "POST",
-            body: JSON.stringify({ingredients: orderIDAllIngredient}),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-            },
-        })
-            .then((res) =>
-                res.ok ? res.json() : res.json().then((err) => Promise.reject(err))
-            )
-            .then((res) => {
-                console.log(res)
-                dispatch({type: POST_ORDER_INGREDIENTS_SUCCESS, payload: res})
-                openModal();
-            })
-            .catch((err) => {
-                dispatch({type: POST_ORDER_INGREDIENTS_ERROR})
-                console.error(err)
-            });
+        dispatch(postOrderIngredients(orderIDAllIngredient, openModal))
     }
 
     const [, dropRef] = useDrop({
@@ -143,8 +125,9 @@ const BurgerConstructor = props => {
                             <CurrencyIcon type={"primary"}/>
                         </div>
                         <Button htmlType="button" onClick={postOrderIngredient} type="primary" size="medium">
-                            Оформить заказ
+                            {isLoadingOrder ? "Загрузка..." : "Оформить заказ"}
                         </Button>
+
                     </section>
                 </div>
             ) : (
@@ -161,7 +144,6 @@ const BurgerConstructor = props => {
                     </div>
                 </section>
             )}
-
             {isModalOpen && (
                 <Modal title="" setActive={closeModal}>
                     <OrderDetails orderConstructor={orderNumber}/>
