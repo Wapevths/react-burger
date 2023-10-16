@@ -1,33 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styles from './app.module.css';
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import {useDispatch} from "react-redux";
+import {getIngredients} from "../../services/ingredients/actions";
 
 const App = () => {
-    const [date, setDate] = useState([])
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        fetch('https://norma.nomoreparties.space/api/ingredients')
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка ${res.status}`);
-            })
-            .then(res => setDate(res.data))
-            .catch(console.error)
-    }, []);
+        dispatch(getIngredients())
+    }, [dispatch]);
 
     return (
-    <div>
-      <AppHeader/>
-        <main className={styles.containerBurger}>
-            <BurgerIngredients data={date} />
-            <BurgerConstructor data={date}/>
-        </main>
-
-    </div>
-  );
+        <div>
+            <AppHeader/>
+            <main className={styles.containerBurger}>
+                <BurgerIngredients />
+                <BurgerConstructor/>
+            </main>
+        </div>
+    );
 }
 
 export default App;

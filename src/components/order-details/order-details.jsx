@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styles from './order-details.module.css'
 import CheckImage from '../../images/graphics.svg'
 
-const OrderDetails = () => {
+const OrderDetails = (props) => {
     return (
         <section className={styles.containerOrderDetails}>
             <h1 className={`text text_type_digits-large pt-9 ${styles.containerTitleOrderDetails}`}>
-                034536
+                {props.orderConstructor.order.number}
             </h1>
             <span className={`text text_type_main-medium`}>
                 идентификатор заказа
@@ -27,5 +27,8 @@ const OrderDetails = () => {
     );
 };
 
+OrderDetails.propTypes = {
+    orderConstructor: PropTypes.object.isRequired
+};
 
 export default OrderDetails;
