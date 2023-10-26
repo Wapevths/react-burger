@@ -4,7 +4,7 @@ function checkResponse(res) {
     if (res.ok) {
         return res.json();
     }
-    return Promise.reject(`Ошибка ${res.status}`);
+    return res;
 }
 
 const updateToken = () => {
@@ -37,7 +37,7 @@ export const fetchWithRefresh = async (endpoint, options) => {
         return await checkResponse(res);
     } catch (err) {
         if (err.message === "jwt expired") {
-            const refreshData = await refreshToken;
+            const refreshData = await refreshToken();
             if (!refreshData.success) {
                 Promise.reject(refreshData);
             }
