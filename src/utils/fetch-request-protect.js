@@ -37,7 +37,7 @@ export const fetchWithRefresh = async (endpoint, options) => {
         return await checkResponse(res);
     } catch (err) {
         if (err.message === "jwt expired") {
-            const refreshData = refreshToken;
+            const refreshData = await refreshToken;
             if (!refreshData.success) {
                 Promise.reject(refreshData);
             }
@@ -45,7 +45,7 @@ export const fetchWithRefresh = async (endpoint, options) => {
             setCookie("accessToken", refreshData.accessToken);
             options.headers.authorization = refreshData.accessToken;
             const res = await fetch(BASE_URL + endpoint, options);
-            return checkResponse(res);
+            return await checkResponse(res);
         } else {
             return Promise.reject(err);
         }
