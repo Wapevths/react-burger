@@ -105,7 +105,7 @@ const BurgerIngredients = (props) => {
                             ))}
                         </section>
                     </div>
-                    <div className={`pl-4 pb-10`} ref={mainRef}>
+                    <div className={`pl-4 mb-10`} ref={mainRef}>
                         <h2 className={`pb-6 text text_type_main-medium`} >
                             Начинки
                         </h2>

@@ -3,4 +3,6 @@
   align-items: start;
   justify-content: center;
   column-gap: 40px;
+  height: calc(100% - 100px);
+
 }

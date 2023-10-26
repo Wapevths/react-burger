@@ -1,0 +1,22 @@
+.containerLoginPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+.containerLoginPage > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.containerRegisterReset {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    justify-content: center;
+}
+.linkStyle {
+    text-decoration: none;
+    color: #4C4CFF;
+}
