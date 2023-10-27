@@ -1,30 +1,3 @@
-.containerIngredientDetails {
-    display: flex;
-    align-items: center;
+.ingredientPageContainer {
     padding-top: 120px;
-    justify-content: center;
-    flex-direction: column;
-}
-.nameIngredient {
-    text-align: center;
-    width: 100%;
-}
-.imageIngredient {
-    width: 480px;
-    height: 240px;
-}
-.containerComposition {
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
-    justify-content: center;
-    color: #8585AD;
-    width: 516px;
-}
-.subContainerComposition {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 112px;
-    row-gap: 8px;
 }

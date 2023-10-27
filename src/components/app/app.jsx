@@ -21,14 +21,16 @@ const App = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     let location = useLocation();
-    // let state = location?.state as  location?.state.backgroundLocation;
-    let state = location.state ;
+    let state = location.state;
     let accessToken = getCookie('token')
     useEffect(() => {
         dispatch(getIngredients())
         if (accessToken) {
             dispatch(getUser(navigate))
         }
+        console.log(state?.backgroundLocation || location)
+        console.log('state ', state?.backgroundLocation)
+        console.log('location ', location)
     }, [dispatch]);
 
 

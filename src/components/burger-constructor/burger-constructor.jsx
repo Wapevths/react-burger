@@ -15,6 +15,8 @@ import {
     postOrderIngredients,
     SORT_INGREDIENT,
 } from "../../services/ingredients/actions";
+import {getCookie} from "../../utils/cookie";
+import {Link} from "react-router-dom";
 
 
 const BurgerConstructor = props => {
@@ -25,6 +27,7 @@ const BurgerConstructor = props => {
     const isLoadingOrder = useSelector(state => state.ingredients.isLoadingOrderIngredients)
     const data = useSelector(getConstructorIngredients)
     const dispatch = useDispatch()
+    const accessToken = getCookie('token')
 
     useEffect(() => {
         let sum = 0
@@ -124,9 +127,19 @@ const BurgerConstructor = props => {
                         </span>
                             <CurrencyIcon type={"primary"}/>
                         </div>
-                        <Button htmlType="button" onClick={postOrderIngredient} type="primary" size="medium">
-                            {isLoadingOrder ? "Загрузка..." : "Оформить заказ"}
-                        </Button>
+                        {accessToken ? (
+                            <Button htmlType="button" onClick={postOrderIngredient} type="primary" size="medium">
+                                {isLoadingOrder ? "Загрузка..." : "Оформить заказ"}
+                            </Button>
+                        ): (
+                            <Link to="/login">
+                                <Button htmlType="button" type="primary" size="medium">
+                                    {isLoadingOrder ? "Загрузка..." : "Оформить заказ"}
+                                </Button>
+                            </Link>
+
+                        )}
+
 
                     </section>
                 </div>
