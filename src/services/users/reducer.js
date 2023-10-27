@@ -7,7 +7,16 @@ import {
     POST_AUTHORIZE_USER_ERROR,
     GET_USER_REQUEST,
     GET_USER_SUCCESS,
-    GET_USER_ERROR
+    GET_USER_ERROR,
+    PATCH_USER_REQUEST,
+    PATCH_USER_SUCCESS,
+    PATCH_USER_ERROR,
+    POST_LOGOUT_USER_REQUEST,
+    POST_LOGOUT_USER_SUCCESS,
+    POST_LOGOUT_USER_ERROR,
+    POST_FORGOT_PASSWORD_REQUEST,
+    POST_FORGOT_PASSWORD_SUCCESS,
+    POST_FORGOT_PASSWORD_ERROR, POST_RESET_PASSWORD_REQUEST, POST_RESET_PASSWORD_SUCCESS, POST_RESET_PASSWORD_ERROR,
 } from './actions'
 
 const initialState = {
@@ -21,6 +30,19 @@ const initialState = {
 
     isGetUserLoading: false,
     isGetUserError: false,
+
+    isPatchUserLoading: false,
+    isPatchUserError: false,
+
+    isPostLogoutUserLoading: false,
+    isPostLogoutUserError: false,
+
+    isEmailSend: false,
+    isPostForgotPasswordUserLoading: false,
+    isPostForgotPasswordUserError: false,
+
+    isPostResetPasswordUserLoading: false,
+    isPostResetPasswordUserError: false,
 }
 
 export default (state = initialState, action) => {
@@ -53,8 +75,43 @@ export default (state = initialState, action) => {
         case GET_USER_ERROR: {
             return {...state, user: [], isGetUserLoading: false, isGetUserError: true}
         }
+        case PATCH_USER_REQUEST: {
+            return {...state, isPatchUserError: false, isPatchUserLoading: true}
+        }
+        case PATCH_USER_SUCCESS: {
+            return {...state, user: action.payload, isPatchUserError: false, isPatchUserLoading: false}
+        }
+        case PATCH_USER_ERROR: {
+            return {...state, user: [], isPatchUserLoading: false, isPatchUserError: true}
+        }
+        case POST_LOGOUT_USER_REQUEST: {
+            return {...state, isPostLogoutUserError: false, isPostLogoutUserLoading: true}
+        }
+        case POST_LOGOUT_USER_SUCCESS: {
+            return {...state, user: action.payload, isPostLogoutUserError: false, isPostLogoutUserLoading: false}
+        }
+        case POST_LOGOUT_USER_ERROR: {
+            return {...state, user: [], isPostLogoutUserLoading: false, isPostLogoutUserError: true}
+        }
+        case POST_FORGOT_PASSWORD_REQUEST: {
+            return {...state, isPostForgotPasswordUserError: false, isPostForgotPasswordUserLoading: true}
+        }
+        case POST_FORGOT_PASSWORD_SUCCESS: {
+            return {...state, isEmailSend: action.payload, isPostForgotPasswordUserError: false, isPostForgotPasswordUserLoading: false}
+        }
+        case POST_FORGOT_PASSWORD_ERROR: {
+            return {...state, isEmailSend: false, isPostForgotPasswordUserLoading: false, isPostForgotPasswordUserError: true}
+        }
+        case POST_RESET_PASSWORD_REQUEST: {
+            return {...state, isPostResetPasswordUserError: false, isPostResetPasswordUserLoading: true}
+        }
+        case POST_RESET_PASSWORD_SUCCESS: {
+            return {...state, isPostResetPasswordUserError: false, isPostResetPasswordUserLoading: false}
+        }
+        case POST_RESET_PASSWORD_ERROR: {
+            return {...state,  isPostResetPasswordUserLoading: false, isPostResetPasswordUserError: true}
+        }
         default:
-
             return state
 
     }

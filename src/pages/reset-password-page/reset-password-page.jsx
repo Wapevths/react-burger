@@ -1,15 +1,18 @@
 import React, {useState} from 'react';
 import styles from "./reset-password-page.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {postRequestResetPassword} from "../../services/users/actions";
 
 const ResetPasswordPage = () => {
     const [code, setCode] = useState("");
     const [password, setPassword] = useState("");
-    const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const handlePostRequestResetPasswordPage = (event) => {
         event.preventDefault();
-        console.log('reset password')
+        dispatch(postRequestResetPassword(password, code, navigate))
     }
     return (
         <div className={styles.containerResetPasswordPage}>

@@ -85,10 +85,10 @@ const BurgerIngredients = (props) => {
                         </h2>
                         <section className={`${styles.ingredients}`}>
                             {data.filter(item => item.type === 'bun').map((item) => (
-                                <CardIngredients ingredient={item}
-                                                 getIngredient={getIngredient}
-                                                 key={item._id}
-                                />
+                                    <CardIngredients ingredient={item}
+                                                     key={item._id}
+                                                     getIngredient={getIngredient}
+                                    />
                             ))}
                         </section>
                     </div>
@@ -98,10 +98,10 @@ const BurgerIngredients = (props) => {
                         </h2>
                         <section className={`${styles.ingredients}`}>
                             {data.filter(item => item.type === 'sauce').map((item) => (
-                                <CardIngredients ingredient={item}
-                                                 getIngredient={getIngredient}
-                                                 key={item._id}
-                                />
+                                    <CardIngredients ingredient={item}
+                                                     getIngredient={getIngredient}
+                                                     key={item._id}
+                                    />
                             ))}
                         </section>
                     </div>
@@ -111,10 +111,10 @@ const BurgerIngredients = (props) => {
                         </h2>
                         <section className={`${styles.ingredients}`}>
                             {data.filter(item => item.type === 'main').map((item) => (
-                                <CardIngredients ingredient={item}
-                                                 getIngredient={getIngredient}
-                                                 key={item._id}
-                                />
+                                    <CardIngredients ingredient={item}
+                                                     getIngredient={getIngredient}
+                                                     key={item._id}
+                                    />
                             ))}
                         </section>
                     </div>
