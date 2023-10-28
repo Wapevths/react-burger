@@ -14,7 +14,6 @@ const BurgerIngredients = (props) => {
 
     const data = useSelector(state => state.ingredients.ingredients)
     const selectIngredient = useSelector(state => state.ingredients.selectIngredient)
-    const {isModalOpen, openModal, closeModal} = useModal();
     const dispatch = useDispatch()
 
 
@@ -43,7 +42,6 @@ const BurgerIngredients = (props) => {
     });
 
     const getIngredient = (ingredientObj) => {
-        openModal()
         dispatch({type: GET_SELECT_INGREDIENT, payload: ingredientObj})
     }
 
@@ -120,11 +118,7 @@ const BurgerIngredients = (props) => {
                     </div>
                 </section>
             </div>
-            {isModalOpen && (
-                <Modal title="Детали ингредиента" setActive={closeModal}>
-                    <IngredientDetails data={selectIngredient}/>
-                </Modal>
-            )}
+
 
         </main>
     );

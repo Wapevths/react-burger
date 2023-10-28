@@ -1,6 +1,8 @@
 import React from 'react';
 import {Navigate, useLocation} from "react-router-dom";
 import {getCookie} from "../../utils/cookie";
+import PropTypes from "prop-types";
+import CardIngredients from "../card-ingredients/card-ingredients";
 
 const ProtectedRouteElement = ({onlyUnAuth, children}) => {
     const location = useLocation()
@@ -19,6 +21,11 @@ const ProtectedRouteElement = ({onlyUnAuth, children}) => {
     }
 
     return children
+};
+
+ProtectedRouteElement.propTypes = {
+    onlyUnAuth: PropTypes.bool,
+    children: PropTypes.element.isRequired
 };
 
 export default ProtectedRouteElement;
