@@ -86,12 +86,11 @@ export const postAuthorizeUser = (email, password, navigate) => (dispatch) => {
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8",
-            "authorization": `Bearer ${getCookie('token')}`
+            // "authorization": `Bearer ${getCookie('token')}`
         },
-    })
-        .then((res) => {
+    }).then(res => {
             let authToken = res.accessToken.split('Bearer ')[1];
-
+            console.log(res)
             if (authToken) {
                 setCookie('token', authToken);
             }

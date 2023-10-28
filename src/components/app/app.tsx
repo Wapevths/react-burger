@@ -4,7 +4,7 @@ import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../../services/ingredients/actions";
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import MainPage from "../../pages/main-page/main-page";
 import LoginPage from "../../pages/login-page/login-page";
 import RegisterPage from "../../pages/register-page/register-page";
@@ -26,7 +26,7 @@ const App = () => {
     let accessToken = getCookie('token')
     let state = location.state as { backgroundLocation?: Location };
     const {isModalOpen, openModal, closeModal} = useModal();
-
+    const navigate = useNavigate()
     // @ts-ignore
     const ingredient = useSelector(state => state.ingredients.ingredients)
     const [date, setDate] = useState({});
@@ -48,7 +48,10 @@ const App = () => {
         openModal()
     }, [date]);
 
-
+    const handleCloseModal = () => {
+        navigate('/')
+        closeModal()
+    }
 
 
     return (
@@ -72,7 +75,7 @@ const App = () => {
                                 {date != undefined && (
                                     <>
                                         {isModalOpen && (
-                                            <Modal title="Детали ингредиента" setActive={closeModal}>
+                                            <Modal title="Детали ингредиента" setActive={handleCloseModal}>
                                                 <IngredientDetails data={date}/>
                                             </Modal>
                                         )}
