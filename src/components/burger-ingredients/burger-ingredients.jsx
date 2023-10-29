@@ -14,7 +14,6 @@ const BurgerIngredients = (props) => {
 
     const data = useSelector(state => state.ingredients.ingredients)
     const selectIngredient = useSelector(state => state.ingredients.selectIngredient)
-    const {isModalOpen, openModal, closeModal} = useModal();
     const dispatch = useDispatch()
 
 
@@ -43,7 +42,6 @@ const BurgerIngredients = (props) => {
     });
 
     const getIngredient = (ingredientObj) => {
-        openModal()
         dispatch({type: GET_SELECT_INGREDIENT, payload: ingredientObj})
     }
 
@@ -85,10 +83,10 @@ const BurgerIngredients = (props) => {
                         </h2>
                         <section className={`${styles.ingredients}`}>
                             {data.filter(item => item.type === 'bun').map((item) => (
-                                <CardIngredients ingredient={item}
-                                                 getIngredient={getIngredient}
-                                                 key={item._id}
-                                />
+                                    <CardIngredients ingredient={item}
+                                                     key={item._id}
+                                                     getIngredient={getIngredient}
+                                    />
                             ))}
                         </section>
                     </div>
@@ -98,33 +96,29 @@ const BurgerIngredients = (props) => {
                         </h2>
                         <section className={`${styles.ingredients}`}>
                             {data.filter(item => item.type === 'sauce').map((item) => (
-                                <CardIngredients ingredient={item}
-                                                 getIngredient={getIngredient}
-                                                 key={item._id}
-                                />
+                                    <CardIngredients ingredient={item}
+                                                     getIngredient={getIngredient}
+                                                     key={item._id}
+                                    />
                             ))}
                         </section>
                     </div>
-                    <div className={`pl-4 pb-10`} ref={mainRef}>
+                    <div className={`pl-4 mb-10`} ref={mainRef}>
                         <h2 className={`pb-6 text text_type_main-medium`} >
                             Начинки
                         </h2>
                         <section className={`${styles.ingredients}`}>
                             {data.filter(item => item.type === 'main').map((item) => (
-                                <CardIngredients ingredient={item}
-                                                 getIngredient={getIngredient}
-                                                 key={item._id}
-                                />
+                                    <CardIngredients ingredient={item}
+                                                     getIngredient={getIngredient}
+                                                     key={item._id}
+                                    />
                             ))}
                         </section>
                     </div>
                 </section>
             </div>
-            {isModalOpen && (
-                <Modal title="Детали ингредиента" setActive={closeModal}>
-                    <IngredientDetails data={selectIngredient}/>
-                </Modal>
-            )}
+
 
         </main>
     );

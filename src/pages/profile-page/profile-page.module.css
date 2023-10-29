@@ -1,0 +1,40 @@
+.containerProfilePage {
+    height: calc(100% - 120px);
+    display: flex;
+    padding-top: 120px;
+    justify-content: center;
+    column-gap: 60px;
+}
+.containerLeftMenu {
+    display: flex;
+    row-gap: 80px;
+    flex-direction: column;
+}
+.containerLink {
+    display: flex;
+    flex-direction: column;
+}
+.containerLink > .link {
+    height: 64px;
+    align-items: center;
+    display: flex;
+    color: #8585AD;
+}
+.containerInfoThisPage {
+    display: flex;
+    flex-direction: column;
+}
+.infoThisPage {
+    color: #8585AD;
+    opacity: 0.4;
+}
+.exitButton {
+    cursor: pointer;
+    height: 64px;
+    align-items: center;
+    display: flex;
+    color: #8585AD;
+}
+.selectLink {
+    color: #F2F2F3;
+}

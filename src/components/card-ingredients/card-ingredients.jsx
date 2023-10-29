@@ -5,13 +5,14 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {getConstructorIngredients} from "../../services/ingredients/selectors";
+import {Link, useLocation} from "react-router-dom";
 const CardIngredients = (props) => {
     const constructorIngredients = useSelector(getConstructorIngredients)
     let counterIngredient = 0
     const getModal = () => {
         props.getIngredient(props.ingredient)
     }
-
+    const location = useLocation()
     for (let i = 0; i < constructorIngredients.length; i++) {
         if (constructorIngredients[i]._id === props.ingredient._id) {
             counterIngredient++
@@ -28,7 +29,7 @@ const CardIngredients = (props) => {
 
 
     return (
-        <div className={`${styles.containerCardIngredients}`} ref={dragRef} onClick={getModal}>
+        <Link to={`ingredients/${props.ingredient._id}`} state={{ backgroundLocation: location }} className={`${styles.containerCardIngredients}`} ref={dragRef} onClick={getModal}>
             <img src={props.ingredient.image} alt={props.ingredient.name}/>
             <div className={styles.containerPrice}>
                 <span className={`text text_type_digits-default`}>
@@ -43,7 +44,7 @@ const CardIngredients = (props) => {
                          extraClass={styles.cardCounterIngredients}
                 />
             )}
-        </div>
+        </Link>
 );
 };
 

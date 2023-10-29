@@ -16,7 +16,7 @@
     flex-direction: column;
 }
 .containerIngredients {
-    height: 650px;
+    height: 600px;
     overflow-y: scroll;
     width: 100%;
 }
