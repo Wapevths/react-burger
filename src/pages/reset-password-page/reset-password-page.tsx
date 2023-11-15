@@ -6,13 +6,13 @@ import {useDispatch} from "react-redux";
 import {postRequestResetPassword} from "../../services/users/actions";
 
 const ResetPasswordPage = () => {
-    const [code, setCode] = useState("");
-    const [password, setPassword] = useState("");
+    const [code, setCode] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const handlePostRequestResetPasswordPage = (event) => {
+    const handlePostRequestResetPasswordPage = (event:React.FormEvent) => {
         event.preventDefault();
-        dispatch(postRequestResetPassword(password, code, navigate))
+        dispatch<any>(postRequestResetPassword(password, code, navigate))
     }
     return (
         <div className={styles.containerResetPasswordPage}>

@@ -1,5 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
-import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
 import styles from './burger-constructor.module.css'
 import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from "../modal/modal";
@@ -17,24 +16,25 @@ import {
 } from "../../services/ingredients/actions";
 import {getCookie} from "../../utils/cookie";
 import {Link} from "react-router-dom";
+import {ITypesIngredient} from "../../utils/types-ingredient";
 
 
-const BurgerConstructor = props => {
-    const [firstElement, setFirstElement] = useState([])
-    const [totalPrice, setTotalPrice] = useState(0)
+const BurgerConstructor = () => {
+    const [firstElement, setFirstElement] = useState<any>([])
+    const [totalPrice, setTotalPrice] = useState<number>(0)
     const {isModalOpen, openModal, closeModal} = useModal();
-    const orderNumber = useSelector(state => state.ingredients.orderIngredients)
-    const isLoadingOrder = useSelector(state => state.ingredients.isLoadingOrderIngredients)
+    const orderNumber = useSelector((state:any) => state.ingredients.orderIngredients)
+    const isLoadingOrder = useSelector((state:any) => state.ingredients.isLoadingOrderIngredients)
     const data = useSelector(getConstructorIngredients)
     const dispatch = useDispatch()
-    const accessToken = getCookie('token')
+    const accessToken:string|undefined = getCookie('token')
 
     useEffect(() => {
-        let sum = 0
+        let sum:number = 0
 
-        data.find(item => item.type === 'bun' ? setFirstElement(item) : "")
+        data.find((item:ITypesIngredient) => item.type === 'bun' ? setFirstElement(item) : "")
 
-        data.forEach(x => {
+        data.forEach((x:ITypesIngredient) => {
             if (x.type === 'bun') {
                 sum += (x.price * 2)
             } else {
@@ -47,30 +47,30 @@ const BurgerConstructor = props => {
         }
     }, [data])
 
-    const deleteItem = (uniqId) => {
-        dispatch({type: DELETE_INGREDIENT, payload: uniqId})
+    const deleteItem = (uniqId:string) => {
+        dispatch<any>({type: DELETE_INGREDIENT, payload: uniqId})
     }
 
     const postOrderIngredient = () => {
-        const orderIDAllIngredient = data.map((item) => ({_id: item._id}))
-        dispatch(postOrderIngredients(orderIDAllIngredient, openModal))
+        const orderIDAllIngredient = data.map((item:ITypesIngredient) => ({_id: item._id}))
+        dispatch<any>(postOrderIngredients(orderIDAllIngredient, openModal))
     }
 
     const [, dropRef] = useDrop({
         accept: 'ingredient',
-        drop(ingredientObj) {
-            dispatch(addIngredient(ingredientObj))
+        drop(ingredientObj:ITypesIngredient) {
+            dispatch<any>(addIngredient(ingredientObj))
         }
     })
-    const moveCard = (dragIndex, hoverIndex) => {
-        const arrayNoBun = data.filter(item => item.type !== 'bun')
-        const findBun = data.filter(item => item.type === 'bun')
+    const moveCard = (dragIndex:number, hoverIndex:number) => {
+        const arrayNoBun = data.filter((item:ITypesIngredient) => item.type !== 'bun')
+        const findBun = data.filter((item:ITypesIngredient) => item.type === 'bun')
         const dragCard = arrayNoBun[dragIndex]
         const newCards = [...arrayNoBun]
         newCards.splice(dragIndex, 1)
         newCards.splice(hoverIndex, 0, dragCard)
         newCards.push(...findBun)
-        dispatch({type: SORT_INGREDIENT, payload: newCards})
+        dispatch<any>({type: SORT_INGREDIENT, payload: newCards})
     }
 
     return (
@@ -94,7 +94,7 @@ const BurgerConstructor = props => {
                     {/*deleteItem(item.uniqId)*/}
                     <section className={`custom-scroll ${styles.mainMapBurgerConstructor}`}>
 
-                        {data.filter(item => item.type !== 'bun').map((item, index) => (
+                        {data.filter((item:ITypesIngredient) => item.type !== 'bun').map((item:ITypesIngredient & {uniqId: string}, index:number) => (
                             <BurgerConstructorList key={item.uniqId}
                                                    data={item}
                                                    index={index}

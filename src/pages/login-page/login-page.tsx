@@ -1,17 +1,17 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import styles from './login-page.module.css'
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {postAuthorizeUser} from "../../services/users/actions";
 const LoginPage = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const handlePostRequestLogin = (event) => {
+    const handlePostRequestLogin = (event:React.FormEvent) => {
         event.preventDefault();
-        dispatch(postAuthorizeUser(email, password, navigate))
+        dispatch<any>(postAuthorizeUser(email, password, navigate))
     }
 
     return (

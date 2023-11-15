@@ -2,34 +2,23 @@ import React, {useEffect, useState} from 'react';
 import styles from './burger-ingredients.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import CardIngredients from "../card-ingredients/card-ingredients";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import {useModal} from "../../hooks/useModal";
 import {useDispatch, useSelector} from "react-redux";
 import {GET_SELECT_INGREDIENT} from "../../services/ingredients/actions";
 import {useInView} from "react-intersection-observer";
+import {ITypesIngredient} from "../../utils/types-ingredient";
 
-const BurgerIngredients = (props) => {
-    const [current, setCurrent] = useState('Булки')
+const BurgerIngredients = () => {
+    const [current, setCurrent] = useState<string>('Булки')
 
-    const data = useSelector(state => state.ingredients.ingredients)
-    const selectIngredient = useSelector(state => state.ingredients.selectIngredient)
+    const data = useSelector((state:any) => state.ingredients.ingredients)
     const dispatch = useDispatch()
 
 
-    const ingredients = [
+    const ingredients: {name: string, type: string}[] = [
         {name: 'Булки', type: 'bun'},
         {name: 'Соусы', type: 'sauce'},
         {name: 'Начинки', type: 'main'}
     ]
-
-    // const setTab = (tab) => {
-    //     setCurrent(tab);
-    //     const element = document.getElementById(tab);
-    //     if (element) {
-    //         element.scrollIntoView({behavior: "smooth"});
-    //     }
-    // };
 
     const [bunRef, bunInView] = useInView({
         threshold: 0.6,
@@ -41,7 +30,7 @@ const BurgerIngredients = (props) => {
         threshold: 1,
     });
 
-    const getIngredient = (ingredientObj) => {
+    const getIngredient = (ingredientObj:ITypesIngredient) => {
         dispatch({type: GET_SELECT_INGREDIENT, payload: ingredientObj})
     }
 
@@ -70,8 +59,8 @@ const BurgerIngredients = (props) => {
                     Соберите бургер
                 </h1>
                 <section className={`${styles.containerTab} pb-10`}>
-                    {ingredients.map((item, index) => (
-                        <Tab key={index} active={current === item.name} value={item.name}>
+                    {ingredients.map((item:{name: string, type: string}, index:number) => (
+                        <Tab key={index} active={current === item.name} value={item.name} onClick={() => {}}>
                             {item.name}
                         </Tab>
                     ))}
@@ -82,7 +71,7 @@ const BurgerIngredients = (props) => {
                             Булки
                         </h2>
                         <section className={`${styles.ingredients}`}>
-                            {data.filter(item => item.type === 'bun').map((item) => (
+                            {data.filter((item:ITypesIngredient) => item.type === 'bun').map((item:ITypesIngredient) => (
                                     <CardIngredients ingredient={item}
                                                      key={item._id}
                                                      getIngredient={getIngredient}
@@ -95,7 +84,7 @@ const BurgerIngredients = (props) => {
                             Соусы
                         </h2>
                         <section className={`${styles.ingredients}`}>
-                            {data.filter(item => item.type === 'sauce').map((item) => (
+                            {data.filter((item:ITypesIngredient) => item.type === 'sauce').map((item:ITypesIngredient) => (
                                     <CardIngredients ingredient={item}
                                                      getIngredient={getIngredient}
                                                      key={item._id}
@@ -108,7 +97,7 @@ const BurgerIngredients = (props) => {
                             Начинки
                         </h2>
                         <section className={`${styles.ingredients}`}>
-                            {data.filter(item => item.type === 'main').map((item) => (
+                            {data.filter((item:ITypesIngredient) => item.type === 'main').map((item:ITypesIngredient) => (
                                     <CardIngredients ingredient={item}
                                                      getIngredient={getIngredient}
                                                      key={item._id}

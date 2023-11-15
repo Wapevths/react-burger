@@ -7,18 +7,16 @@ import {postCreateUser} from "../../services/users/actions";
 
 const RegisterPage = () => {
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
-    const handlePostRequestRegister = (event) => {
+    const handlePostRequestRegister = (event:React.FormEvent) => {
         event.preventDefault();
-        console.log('register')
-        console.log(event)
-        dispatch(postCreateUser(email, password, name, navigate))
+        dispatch<any>(postCreateUser(email, password, name, navigate))
     }
 
     return (

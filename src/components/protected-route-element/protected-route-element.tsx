@@ -2,12 +2,16 @@ import React from 'react';
 import {Navigate, useLocation} from "react-router-dom";
 import {getCookie} from "../../utils/cookie";
 import PropTypes from "prop-types";
-import CardIngredients from "../card-ingredients/card-ingredients";
 
-const ProtectedRouteElement = ({onlyUnAuth, children}) => {
+interface IProtectedRouteElementProps {
+    onlyUnAuth?: boolean,
+    children: React.ReactElement
+}
+
+const ProtectedRouteElement =  ({onlyUnAuth, children}:IProtectedRouteElementProps) => {
     const location = useLocation()
-    const isAuthChecked = true
-    const accessToken = getCookie('token')
+    const isAuthChecked:boolean = true
+    const accessToken:string|undefined = getCookie('token')
     if (!isAuthChecked) {
         return <div>Loading...</div>
     }

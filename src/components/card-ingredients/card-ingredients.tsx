@@ -4,9 +4,16 @@ import styles from './card-ingredients.module.css'
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
+
 import {getConstructorIngredients} from "../../services/ingredients/selectors";
 import {Link, useLocation} from "react-router-dom";
-const CardIngredients = (props) => {
+import {ITypesIngredient} from "../../utils/types-ingredient";
+
+interface ICardIngredientsProps {
+    ingredient: ITypesIngredient
+    getIngredient: () => void
+}
+const CardIngredients = (props:any) => {
     const constructorIngredients = useSelector(getConstructorIngredients)
     let counterIngredient = 0
     const getModal = () => {
@@ -19,10 +26,14 @@ const CardIngredients = (props) => {
         }
     }
 
-    const [  , dragRef] = useDrag({
+    const [  , dragRef] = useDrag<
+        ITypesIngredient,
+        void,
+        { isDrag: any }
+    >({
         type: 'ingredient',
         item: props.ingredient,
-        collect: monitor => ({
+        collect: (monitor) => ({
             isDrag: monitor.isDragging()
         })
     })
