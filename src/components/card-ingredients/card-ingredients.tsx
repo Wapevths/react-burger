@@ -1,38 +1,35 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './card-ingredients.module.css'
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
-
-import {getConstructorIngredients} from "../../services/ingredients/selectors";
 import {Link, useLocation} from "react-router-dom";
-import {ITypesIngredient} from "../../utils/types-ingredient";
+import {useAppSelector} from "../../hooks/redux-hooks";
+import {ITypesIngredientNotRequired} from "../../utils/types-ingredient-not-required";
 
 interface ICardIngredientsProps {
-    ingredient: ITypesIngredient
-    getIngredient: () => void
+    ingredient: ITypesIngredientNotRequired
+    getIngredient: (ingredient: object ) => void
 }
-const CardIngredients = (props:any) => {
-    const constructorIngredients = useSelector(getConstructorIngredients)
+const CardIngredients = ({ingredient, getIngredient}:ICardIngredientsProps) => {
+    const constructorIngredients = useAppSelector((state) => state.ingredients.constructorIngredients)
     let counterIngredient = 0
     const getModal = () => {
-        props.getIngredient(props.ingredient)
+        getIngredient(ingredient)
     }
     const location = useLocation()
     for (let i = 0; i < constructorIngredients.length; i++) {
-        if (constructorIngredients[i]._id === props.ingredient._id) {
+        if (constructorIngredients[i]._id === ingredient._id) {
             counterIngredient++
         }
     }
 
     const [  , dragRef] = useDrag<
-        ITypesIngredient,
+        ITypesIngredientNotRequired,
         void,
         { isDrag: any }
     >({
         type: 'ingredient',
-        item: props.ingredient,
+        item: ingredient,
         collect: (monitor) => ({
             isDrag: monitor.isDragging()
         })
@@ -40,15 +37,15 @@ const CardIngredients = (props:any) => {
 
 
     return (
-        <Link to={`ingredients/${props.ingredient._id}`} state={{ backgroundLocation: location }} className={`${styles.containerCardIngredients}`} ref={dragRef} onClick={getModal}>
-            <img src={props.ingredient.image} alt={props.ingredient.name}/>
+        <Link to={`ingredients/${ingredient._id}`} state={{ backgroundLocation: location }} className={`${styles.containerCardIngredients}`} ref={dragRef} onClick={getModal}>
+            <img src={ingredient.image} alt={ingredient.name}/>
             <div className={styles.containerPrice}>
                 <span className={`text text_type_digits-default`}>
-                    {props.ingredient.price}
+                    {ingredient.price}
                 </span>
                 <CurrencyIcon type={"primary"}/>
             </div>
-            <span className={`text text_type_main-default ${styles.nameIngredient}`}>{props.ingredient.name}</span>
+            <span className={`text text_type_main-default ${styles.nameIngredient}`}>{ingredient.name}</span>
             {counterIngredient >= 1 && (
                 <Counter count={counterIngredient}
                          size="default"
@@ -57,11 +54,6 @@ const CardIngredients = (props:any) => {
             )}
         </Link>
 );
-};
-
-CardIngredients.propTypes = {
-    ingredient: PropTypes.object.isRequired,
-    getIngredient: PropTypes.func.isRequired
 };
 
 export default CardIngredients;

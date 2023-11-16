@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ingredient-details.module.css'
-import {ITypesIngredient} from "../../utils/types-ingredient";
+import {ITypesIngredientNotRequired} from "../../utils/types-ingredient-not-required";
 
 interface IIngredientDetailsProps {
-    data: ITypesIngredient
+    data: ITypesIngredientNotRequired
 }
-const IngredientDetails = ({data}:any) => {
+const IngredientDetails = ({data}:IIngredientDetailsProps) => {
     return (
         <div className={styles.containerIngredientDetails}>
             <img className={styles.imageIngredient} src={data.image_large} alt={data.name}/>

@@ -2,16 +2,17 @@ import React, {useEffect, useState} from 'react';
 import styles from './burger-ingredients.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import CardIngredients from "../card-ingredients/card-ingredients";
-import {useDispatch, useSelector} from "react-redux";
 import {GET_SELECT_INGREDIENT} from "../../services/ingredients/actions";
 import {useInView} from "react-intersection-observer";
 import {ITypesIngredient} from "../../utils/types-ingredient";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
+import {ITypesIngredientNotRequired} from "../../utils/types-ingredient-not-required";
 
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState<string>('Булки')
 
-    const data = useSelector((state:any) => state.ingredients.ingredients)
-    const dispatch = useDispatch()
+    const data = useAppSelector((state) => state.ingredients.ingredients)
+    const dispatch = useAppDispatch()
 
 
     const ingredients: {name: string, type: string}[] = [
@@ -30,7 +31,7 @@ const BurgerIngredients = () => {
         threshold: 1,
     });
 
-    const getIngredient = (ingredientObj:ITypesIngredient) => {
+    const getIngredient = (ingredientObj: ITypesIngredientNotRequired) => {
         dispatch({type: GET_SELECT_INGREDIENT, payload: ingredientObj})
     }
 
@@ -86,7 +87,7 @@ const BurgerIngredients = () => {
                         <section className={`${styles.ingredients}`}>
                             {data.filter((item:ITypesIngredient) => item.type === 'sauce').map((item:ITypesIngredient) => (
                                     <CardIngredients ingredient={item}
-                                                     getIngredient={getIngredient}
+                                                     getIngredient={(ingredient) =>getIngredient(ingredient)}
                                                      key={item._id}
                                     />
                             ))}

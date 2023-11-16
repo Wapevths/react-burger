@@ -4,8 +4,6 @@ import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-deve
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {useModal} from "../../hooks/useModal";
-import {useDispatch, useSelector} from "react-redux";
-import {getConstructorIngredients} from "../../services/ingredients/selectors";
 import {useDrop} from "react-dnd";
 import BurgerConstructorList from "../burger-constructor-list/burger-constructor-list";
 import {
@@ -17,16 +15,17 @@ import {
 import {getCookie} from "../../utils/cookie";
 import {Link} from "react-router-dom";
 import {ITypesIngredient} from "../../utils/types-ingredient";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 
 
 const BurgerConstructor = () => {
     const [firstElement, setFirstElement] = useState<any>([])
     const [totalPrice, setTotalPrice] = useState<number>(0)
     const {isModalOpen, openModal, closeModal} = useModal();
-    const orderNumber = useSelector((state:any) => state.ingredients.orderIngredients)
-    const isLoadingOrder = useSelector((state:any) => state.ingredients.isLoadingOrderIngredients)
-    const data = useSelector(getConstructorIngredients)
-    const dispatch = useDispatch()
+    const orderNumber = useAppSelector((state) => state.ingredients.orderIngredients)
+    const isLoadingOrder = useAppSelector((state) => state.ingredients.isLoadingOrderIngredients)
+    const data = useAppSelector((state) => state.ingredients.constructorIngredients)
+    const dispatch = useAppDispatch()
     const accessToken:string|undefined = getCookie('token')
 
     useEffect(() => {

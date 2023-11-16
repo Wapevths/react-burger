@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css"
-import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../../services/ingredients/actions";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import MainPage from "../../pages/main-page/main-page";
@@ -19,15 +18,16 @@ import IngredientPage from "../../pages/ingredient-page/ingredient-page";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {useModal} from "../../hooks/useModal";
 import {ITypesIngredient} from "../../utils/types-ingredient";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 
 const App = () => {
-    const dispatch:any = useDispatch()
+    const dispatch = useAppDispatch()
     let location = useLocation();
     let accessToken:string|undefined = getCookie('token')
     let state = location.state as { backgroundLocation?: Location };
     const {isModalOpen, openModal, closeModal} = useModal();
     const navigate = useNavigate()
-    const ingredient = useSelector((state:any) => state.ingredients.ingredients)
+    const ingredient = useAppSelector((state) => state.ingredients.ingredients)
     const [date, setDate] = useState<ITypesIngredient|object>({});
     useEffect(()=> {
         if (ingredient.length > 0) {

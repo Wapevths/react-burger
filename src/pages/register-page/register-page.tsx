@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import styles from "./register-page.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {postCreateUser} from "../../services/users/actions";
+import {useAppDispatch} from "../../hooks/redux-hooks";
 
 const RegisterPage = () => {
 
@@ -13,7 +13,7 @@ const RegisterPage = () => {
 
     const navigate = useNavigate()
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const handlePostRequestRegister = (event:React.FormEvent) => {
         event.preventDefault();
         dispatch<any>(postCreateUser(email, password, name, navigate))

@@ -6,13 +6,12 @@ import {
     Input,
     PasswordInput
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
-import {getUserDate} from "../../services/users/selectors";
 import {NavLink, useNavigate} from "react-router-dom";
 import {patchUser, postLogoutUser} from "../../services/users/actions";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 
 const ProfilePage = () => {
-    const user = useSelector(getUserDate)
+    const user = useAppSelector((state) => state.users.user)
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -22,7 +21,7 @@ const ProfilePage = () => {
 
     const nameRefInput = useRef<HTMLInputElement>(null)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
 

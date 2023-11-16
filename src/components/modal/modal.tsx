@@ -18,9 +18,9 @@ const Modal = (props:IModalProps) => {
         }
     }
     useEffect(() => {
-        document.addEventListener("keydown", (event) => escFunction(event), false);
+        document.addEventListener("keydown", escFunction);
         return () => {
-            document.removeEventListener("keydown", (event) => escFunction(event), false);
+            document.removeEventListener("keydown", escFunction);
         };
     }, []);
 
