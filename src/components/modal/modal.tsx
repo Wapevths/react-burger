@@ -1,21 +1,26 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import {createPortal} from "react-dom";
 import styles from './modal.module.css'
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Modal = props => {
-    const element = window.document.getElementById('modal')
-    const escFunction = (event) => {
+interface IModalProps {
+    children: React.ReactElement,
+    title: string,
+    setActive: (status:boolean) => void
+}
+const Modal = (props:IModalProps) => {
+    const element:any = window.document.getElementById('modal')
+    const escFunction = (event:KeyboardEvent) => {
         if (event.key === "Escape") {
             handleCloseModal()
         }
     }
     useEffect(() => {
-        document.addEventListener("keydown", escFunction, false);
+        document.addEventListener("keydown", escFunction);
         return () => {
-            document.removeEventListener("keydown", escFunction, false);
+            document.removeEventListener("keydown", escFunction);
         };
     }, []);
 

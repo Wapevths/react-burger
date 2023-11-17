@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './modal-overlay.module.css'
-const ModalOverlay = props => {
+interface IModalOverlay {
+    onClose: () => void,
+    children: React.ReactElement
+}
+const ModalOverlay = (props:IModalOverlay) => {
 
     return (
         <section className={styles.containerModalOverlay} onClick={props.onClose}>

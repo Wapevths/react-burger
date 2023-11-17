@@ -3,12 +3,26 @@ import PropTypes from 'prop-types';
 import styles from "./burger-constructor-list.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from "react-dnd";
+import {ITypesIngredient} from "../../utils/types-ingredient";
+import type { Identifier, XYCoord } from 'dnd-core'
 
-const BurgerConstructorList = props => {
+
+interface IBurgerConstructorListProps {
+    data: ITypesIngredient,
+    deleteItem: ({data}:any) => void
+    index: number,
+    moveCard: (dragIndex: number, hoverIndex: number, data: ITypesIngredient) => void,
+    id: string
+}
+const BurgerConstructorList = (props:IBurgerConstructorListProps) => {
     const { data, deleteItem, index, moveCard, id } = props
 
-    const ref = useRef(null)
-    const [{ handlerId }, drop] = useDrop({
+    const ref = useRef<HTMLDivElement>(null)
+    const [{ handlerId }, drop] = useDrop<
+        any,
+        void,
+        { handlerId: Identifier | null }
+    >({
         accept: 'moveCardConstructor',
         collect(monitor) {
             return {
@@ -27,7 +41,7 @@ const BurgerConstructorList = props => {
             const hoverBoundingRect = ref.current?.getBoundingClientRect()
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
             const clientOffset = monitor.getClientOffset()
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return
             }

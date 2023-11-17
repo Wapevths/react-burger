@@ -19,7 +19,7 @@ import {
     POST_FORGOT_PASSWORD_ERROR, POST_RESET_PASSWORD_REQUEST, POST_RESET_PASSWORD_SUCCESS, POST_RESET_PASSWORD_ERROR,
 } from './actions'
 
-const initialState = {
+const initialState:any = {
     user: [],
 
     isPostRegisterLoading: false,
@@ -45,7 +45,7 @@ const initialState = {
     isPostResetPasswordUserError: false,
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action:any) => {
 
     switch (action.type) {
         case POST_REGISTER_USER_REQUEST: {

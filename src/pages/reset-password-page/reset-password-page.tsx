@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import styles from "./reset-password-page.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {postRequestResetPassword} from "../../services/users/actions";
+import {useAppDispatch} from "../../hooks/redux-hooks";
 
 const ResetPasswordPage = () => {
-    const [code, setCode] = useState("");
-    const [password, setPassword] = useState("");
-    const dispatch = useDispatch()
+    const [code, setCode] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const handlePostRequestResetPasswordPage = (event) => {
+    const handlePostRequestResetPasswordPage = (event:React.FormEvent) => {
         event.preventDefault();
         dispatch(postRequestResetPassword(password, code, navigate))
     }

@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ingredient-details.module.css'
+import {ITypesIngredientNotRequired} from "../../utils/types-ingredient-not-required";
 
-const IngredientDetails = (props) => {
+interface IIngredientDetailsProps {
+    data: ITypesIngredientNotRequired
+}
+const IngredientDetails = ({data}:IIngredientDetailsProps) => {
     return (
         <div className={styles.containerIngredientDetails}>
-            <img className={styles.imageIngredient} src={props.data.image_large} alt={props.data.name}/>
+            <img className={styles.imageIngredient} src={data.image_large} alt={data.name}/>
             <span className={`pt-4 pb-8 text text_type_main-medium ${styles.nameIngredient}`}>
-                {props.data.name}
+                {data.name}
             </span>
             <section className={`text text_type_main-default ${styles.containerComposition}`}>
                 <div className={`${styles.subContainerComposition}`}>
@@ -15,7 +19,7 @@ const IngredientDetails = (props) => {
                         Калории,ккал
                     </span>
                     <span className={`text text_type_digits-default`}>
-                        {props.data.calories}
+                        {data.calories}
                     </span>
                 </div>
                 <div className={`${styles.subContainerComposition}`}>
@@ -23,7 +27,7 @@ const IngredientDetails = (props) => {
                         Белки, г
                     </span>
                     <span className={`text text_type_digits-default`}>
-                        {props.data.proteins}
+                        {data.proteins}
                     </span>
                 </div>
                 <div className={`${styles.subContainerComposition}`}>
@@ -31,7 +35,7 @@ const IngredientDetails = (props) => {
                         Жиры, г
                     </span>
                     <span className={`text text_type_digits-default`}>
-                        {props.data.fat}
+                        {data.fat}
                     </span>
                 </div>
                 <div className={`${styles.subContainerComposition}`}>
@@ -39,7 +43,7 @@ const IngredientDetails = (props) => {
                         Углеводы, г
                     </span>
                     <span className={`text text_type_digits-default`}>
-                        {props.data.carbohydrates}
+                        {data.carbohydrates}
                     </span>
                 </div>
             </section>

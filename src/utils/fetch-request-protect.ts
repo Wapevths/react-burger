@@ -1,5 +1,5 @@
 import { getCookie, setCookie } from "./cookie";
-import {BASE_URL, request} from "./fetch-request";
+import {request} from "./fetch-request";
 
 
 const updateToken = () => {
@@ -14,11 +14,11 @@ const updateToken = () => {
     })
 };
 
-export const fetchWithRefresh = async (endpoint, options) => {
+export const fetchWithRefresh = async (endpoint:string, options:any) => {
     try {
         return await request(endpoint, options)
 
-    } catch (err) {
+    } catch (err:any) {
         if (err.message === "jwt expired") {
             const refreshData = await updateToken();
             if (!refreshData.success) {

@@ -11,7 +11,7 @@ import {
     GET_SELECT_INGREDIENT,
 } from './actions'
 
-const initialState = {
+const initialState:any = {
     ingredients: [],
     selectedIngredients: [],
     isLoading: false,
@@ -25,7 +25,7 @@ const initialState = {
 }
 
 
-export default (state = initialState, action) => {
+export default (state = initialState, action:any) => {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return {...state, isLoading: true}
@@ -69,7 +69,8 @@ export default (state = initialState, action) => {
         }
 
         case DELETE_INGREDIENT: {
-            const newConstructorState = state.constructorIngredients.filter(({uniqId}) => uniqId !== action.payload)
+            const newConstructorState = state.constructorIngredients.filter(({uniqId}:any
+            ) => uniqId !== action.payload)
             return {...state, constructorIngredients: newConstructorState}
         }
         default:

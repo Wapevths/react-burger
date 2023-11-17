@@ -6,34 +6,33 @@ import {
     Input,
     PasswordInput
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
-import {getUserDate} from "../../services/users/selectors";
 import {NavLink, useNavigate} from "react-router-dom";
 import {patchUser, postLogoutUser} from "../../services/users/actions";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 
 const ProfilePage = () => {
-    const user = useSelector(getUserDate)
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isInputDisabled, setIsInputDisabled] = useState(true);
-    const [isInputActive, setIsInputActive] = useState(false);
+    const user = useAppSelector((state) => state.users.user)
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
+    const [isInputActive, setIsInputActive] = useState<boolean>(false);
 
 
-    const nameRefInput = useRef(null)
+    const nameRefInput = useRef<HTMLInputElement>(null)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
 
-    const handlePostRequestUpdateUser = (event) => {
+    const handlePostRequestUpdateUser = (event:React.FormEvent) => {
         event.preventDefault()
-        dispatch(patchUser(name, email, password, setIsInputDisabled))
+        dispatch<any>(patchUser(name, email, password, setIsInputDisabled))
     }
 
     useEffect(() => {
         if (!isInputDisabled) {
-            nameRefInput.current.focus()
+            nameRefInput.current?.focus()
         }
     }, [isInputDisabled])
 
@@ -56,12 +55,11 @@ const ProfilePage = () => {
     }, [user])
 
     const handleLogout = () => {
-        dispatch(postLogoutUser(navigate))
+        dispatch<any>(postLogoutUser(navigate))
     }
 
-    const inputChangeValue = (e) => {
+    const inputChangeValue = () => {
         setIsInputActive(true)
-        console.log(e.target.value)
     }
 
     return (
@@ -112,7 +110,7 @@ const ProfilePage = () => {
                 />
 
                 <EmailInput
-                    onChange={(e) => inputChangeValue(e)}
+                    onChange={() => inputChangeValue()}
                     value={email}
                     name={'email'}
                     extraClass="pb-6"
