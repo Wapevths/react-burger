@@ -1,0 +1,21 @@
+.containerImage {
+    border-radius: 50%;
+    position: relative;
+    height: 64px;
+    width: 64px;
+    left: -20px;
+    border: 2px solid #801AB2;
+    background-color: #131316;
+    background-size: cover;
+    background-position: center;
+}
+.howHiddenImageCircle {
+    background: rgba(28,28,33, .6);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+

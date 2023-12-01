@@ -47,18 +47,18 @@ const BurgerConstructor = () => {
     }, [data])
 
     const deleteItem = (uniqId:string) => {
-        dispatch<any>({type: DELETE_INGREDIENT, payload: uniqId})
+        dispatch({type: DELETE_INGREDIENT, payload: uniqId})
     }
 
     const postOrderIngredient = () => {
         const orderIDAllIngredient = data.map((item:ITypesIngredient) => ({_id: item._id}))
-        dispatch<any>(postOrderIngredients(orderIDAllIngredient, openModal))
+        dispatch(postOrderIngredients(orderIDAllIngredient, openModal))
     }
 
     const [, dropRef] = useDrop({
         accept: 'ingredient',
         drop(ingredientObj:ITypesIngredient) {
-            dispatch<any>(addIngredient(ingredientObj))
+            dispatch(addIngredient(ingredientObj))
         }
     })
     const moveCard = (dragIndex:number, hoverIndex:number) => {
@@ -69,7 +69,7 @@ const BurgerConstructor = () => {
         newCards.splice(dragIndex, 1)
         newCards.splice(hoverIndex, 0, dragCard)
         newCards.push(...findBun)
-        dispatch<any>({type: SORT_INGREDIENT, payload: newCards})
+        dispatch({type: SORT_INGREDIENT, payload: newCards})
     }
 
     return (

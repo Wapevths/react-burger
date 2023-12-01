@@ -1,0 +1,28 @@
+.containerDetailedOrderElement {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    column-gap: 16px;
+}
+.containerImage {
+    display: flex;
+    border-radius: 50%;
+    height: 64px;
+    min-width: 64px;
+    max-width: 64px;
+    border: 2px solid #801AB2;
+}
+.nameIngredient {
+    width: 100%;
+}
+.containerPriceCount {
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+}
+
+.containerImage > img {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}

@@ -1,0 +1,14 @@
+.containerFeedPage {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    max-width: 1200px;
+    height: 100%;
+}
+.subContainerFeedPage {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    column-gap: 60px;
+    justify-content: center;
+}

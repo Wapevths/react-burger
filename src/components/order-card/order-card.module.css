@@ -1,0 +1,32 @@
+.containerCardOrder {
+    width: 100%;
+    background: #1C1C21;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+    padding: 24px;
+    box-sizing: border-box;
+    border: 2px dashed #4C4CFF;
+    color: #F2F2F3;
+    text-decoration: none;
+}
+.containerNumberOrderDate {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.containerBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.containerPrice {
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+}
+.containerImageCircle {
+    display: flex;
+}

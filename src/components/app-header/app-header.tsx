@@ -11,18 +11,26 @@ const AppHeader = () => {
                     {({isActive}) => (
                         <>
                             <BurgerIcon type={isActive ? "primary" : "secondary"}/>
-                            <span className={`${isActive ? styles.baseText : styles.secondaryText} text text_type_main-default`}>
+                            <span
+                                className={`${isActive ? styles.baseText : styles.secondaryText} text text_type_main-default`}>
                                 Конструктор
                             </span>
                         </>
                     )}
 
                 </NavLink>
-                <NavLink to="/" className={styles.containerIconText}>
-                    <ListIcon type="secondary"/>
-                    <span className={`${styles.secondaryText} text text_type_main-default`}>
-                        Лента заказов
-                    </span>
+                <NavLink to="/feed" className={styles.containerIconText}>
+
+                    {({isActive}) => (
+                        <>
+                            <ListIcon type={isActive ? "primary" : "secondary"}/>
+                            <span className={`${isActive ? styles.baseText : styles.secondaryText} text text_type_main-default`}>
+                                Лента заказов
+                            </span>
+                        </>
+
+                    )}
+
                 </NavLink>
             </nav>
             <Link to='/' className={styles.containerLogo}>
@@ -32,7 +40,8 @@ const AppHeader = () => {
                 {({isActive}) => (
                     <>
                         <ProfileIcon type={isActive ? "primary" : "secondary"}/>
-                        <span className={`${isActive ? styles.baseText : styles.secondaryText} text text_type_main-default`}>
+                        <span
+                            className={`${isActive ? styles.baseText : styles.secondaryText} text text_type_main-default`}>
                             Личный кабинет
                         </span>
                     </>

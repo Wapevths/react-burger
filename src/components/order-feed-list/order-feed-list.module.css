@@ -1,0 +1,17 @@
+.containerOrderFeed {
+    height: 100%;
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    flex-direction: column;
+}
+.subContainerOrderFeed {
+    height: 750px;
+    display: flex;
+    row-gap: 16px;
+    padding-right: 8px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    flex-direction: column;
+
+}

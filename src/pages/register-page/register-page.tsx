@@ -16,7 +16,7 @@ const RegisterPage = () => {
     const dispatch = useAppDispatch()
     const handlePostRequestRegister = (event:React.FormEvent) => {
         event.preventDefault();
-        dispatch<any>(postCreateUser(email, password, name, navigate))
+        dispatch(postCreateUser(email, password, name, navigate))
     }
 
     return (
