@@ -4,20 +4,25 @@ import {postLogoutUser} from "../../services/users/actions";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 import OrderFeedList from "../../components/order-feed-list/order-feed-list";
-import {orderLineConnect} from "../../services/web-socket/actions";
+import {orderLineConnect, wsOrderLineClose} from "../../services/web-socket/actions";
+import {getCookie} from "../../utils/cookie";
 
 
 
 const OrderPage = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const token = getCookie('token')
 
     const handleLogout = () => {
         dispatch(postLogoutUser(navigate))
     }
 
     useEffect(() => {
-        dispatch(orderLineConnect('wss://norma.nomoreparties.space/orders'))
+        dispatch(orderLineConnect(`wss://norma.nomoreparties.space/orders?token=${token}`))
+        return () => {
+            dispatch(wsOrderLineClose())
+        };
     }, [dispatch])
 
     const myDataFeed = useAppSelector(state => state.orderLineDate.orderLineData)

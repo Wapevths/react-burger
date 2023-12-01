@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './ingredient-details.module.css'
 import {ITypesIngredientNotRequired} from "../../utils/types-ingredient-not-required";
 
@@ -51,8 +50,5 @@ const IngredientDetails = ({data}:IIngredientDetailsProps) => {
     );
 };
 
-IngredientDetails.propTypes = {
-    data: PropTypes.object.isRequired
-};
 
 export default IngredientDetails;

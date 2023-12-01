@@ -33,13 +33,8 @@ export const socketMiddleware = (wsActions: TWSActionTypes): Middleware<{}, Root
                 wsDisconnect
             } = wsActions;
             if (wsConnect.match(action)) {
-                const token = getCookie('token')
                 url = action.payload
-                if (url === "wss://norma.nomoreparties.space/orders") {
-                    socket = new WebSocket(`${url}?token=${token}`);
-                } else {
-                    socket = new WebSocket(url);
-                }
+                socket = new WebSocket(url);
             }
             if (socket) {
                 socket.onopen = () => {

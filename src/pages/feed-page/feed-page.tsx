@@ -3,12 +3,15 @@ import OrderFeedList from "../../components/order-feed-list/order-feed-list";
 import OrderFeedInformation from "../../components/order-feed-information/order-feed-information";
 import styles from './feed-page.module.css'
 import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
-import {orderLineConnect} from "../../services/web-socket/actions";
+import {orderLineConnect, wsOrderLineClose} from "../../services/web-socket/actions";
 
 const FeedPage = () => {
     const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(orderLineConnect('wss://norma.nomoreparties.space/orders/all'))
+        return () => {
+            dispatch(wsOrderLineClose())
+        };
     }, [dispatch])
     const myDataFeed = useAppSelector(state => state.orderLineDate.orderLineData)
 
