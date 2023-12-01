@@ -19,7 +19,39 @@ import {
     POST_FORGOT_PASSWORD_ERROR, POST_RESET_PASSWORD_REQUEST, POST_RESET_PASSWORD_SUCCESS, POST_RESET_PASSWORD_ERROR,
 } from './actions'
 
-const initialState:any = {
+interface IUser {
+    id: number;
+    name: string;
+    email: string;
+}
+
+interface IMyState {
+    user: IUser[]; // Замените 'User[]' на конкретный тип, представляющий данные пользователя
+    isPostRegisterLoading: boolean;
+    isPostRegisterError: boolean;
+
+    isPostAuthorizeLoading: boolean;
+    isPostAuthorizeError: boolean;
+
+    isGetUserLoading: boolean;
+    isGetUserError: boolean;
+
+    isPatchUserLoading: boolean;
+    isPatchUserError: boolean;
+
+    isPostLogoutUserLoading: boolean;
+    isPostLogoutUserError: boolean;
+
+    isEmailSend: boolean;
+    isPostForgotPasswordUserLoading: boolean;
+    isPostForgotPasswordUserError: boolean;
+
+    isPostResetPasswordUserLoading: boolean;
+    isPostResetPasswordUserError: boolean;
+}
+
+
+const initialState:IMyState = {
     user: [],
 
     isPostRegisterLoading: false,
@@ -45,7 +77,7 @@ const initialState:any = {
     isPostResetPasswordUserError: false,
 }
 
-export default (state = initialState, action:any) => {
+export default (state = initialState, action: {type: string, payload: unknown}) => {
 
     switch (action.type) {
         case POST_REGISTER_USER_REQUEST: {

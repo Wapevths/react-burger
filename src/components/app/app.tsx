@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css"
 import {getIngredients} from "../../services/ingredients/actions";
-import {NavLink, Route, Routes, useLocation, useNavigate, useParams} from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import MainPage from "../../pages/main-page/main-page";
 import LoginPage from "../../pages/login-page/login-page";
 import RegisterPage from "../../pages/register-page/register-page";
@@ -11,7 +11,7 @@ import ForgotPasswordPage from "../../pages/forgot-password-page/forgot-password
 import ProfilePage from "../../pages/profile-page/profile-page";
 import ProtectedRouteElement from "../protected-route-element/protected-route-element";
 import {getCookie} from "../../utils/cookie";
-import {getUser, postLogoutUser} from "../../services/users/actions";
+import {getUser} from "../../services/users/actions";
 import NotFoundPage from "../../pages/not-found-page/not-found-page";
 import Modal from "../modal/modal";
 import IngredientPage from "../../pages/ingredient-page/ingredient-page";
@@ -48,8 +48,10 @@ const App = () => {
     useEffect(() => {
         if (location.pathname.split('/')[1] === "feed") {
             dispatch(getDetailedOrder(location.pathname.split('/')[2]))
+        } else if (location.pathname.split('/')[2] === "orders") {
+            dispatch(getDetailedOrder(location.pathname.split('/')[3]))
         }
-    }, [dispatch, location.pathname.split('/')[2]]);
+    }, [dispatch, location.pathname.split('/')[2], location.pathname.split('/')[3]]);
 
     useEffect(() => {
         dispatch(getIngredients())
@@ -66,7 +68,11 @@ const App = () => {
         if (location.pathname.split('/')[1] === "feed") {
             navigate('/feed')
             closeModal()
-        } else {
+        } else if (location.pathname.split('/')[2] === "orders") {
+            navigate('/profile/orders')
+            closeModal()
+        }
+        else {
             navigate('/')
             closeModal()
         }
@@ -74,6 +80,8 @@ const App = () => {
 
     useEffect(() => {
         if (location.pathname.split('/')[1] === "feed") {
+            openModal()
+        } else if (location.pathname.split('/')[2] === "orders") {
             openModal()
         }
     }, [location]);

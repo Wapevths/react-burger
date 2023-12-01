@@ -1,10 +1,9 @@
-//@ts-nocheck
-//TODO
-import React from 'react';
+import React, {useEffect} from 'react';
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './detailed-order.module.css'
 import {useAppSelector} from "../../hooks/redux-hooks";
 import DetailedOrderElement from "../detailed-order-element/detailed-order-element";
+import {ITypesIngredient} from "../../utils/types-ingredient";
 
 interface IDetailedOrderProps {
     numberPositionCenter?: boolean,
@@ -12,29 +11,35 @@ interface IDetailedOrderProps {
     statusOrder: string,
     name: string,
     date: string,
-    ingredients: {}[]
+    ingredients: string[],
+
 }
 
 const DetailedOrder = ({numberPositionCenter = true, numberOrder, statusOrder, name, date, ingredients}:IDetailedOrderProps) => {
-    const ingredientStore = useAppSelector(state => state.ingredients.ingredients)
+    const ingredientStore:ITypesIngredient[] = useAppSelector(state => state.ingredients.ingredients)
     const ingredientsImage:string[] = []
     const ingredientsName:string[] = []
     let allIngredientPrice:number = 0
     const priceIngredient:number[] = []
-    ingredients?.forEach((ingredientId) => {
-        const foundIngredient = ingredientStore.find(
-            (ingredient) => {
-                return ingredient._id === ingredientId
-            }
-        );
-        if (foundIngredient) {
-            allIngredientPrice += foundIngredient.price
-            ingredientsImage.push(foundIngredient.image_mobile);
-            priceIngredient.push(foundIngredient.price)
-            ingredientsName.push(foundIngredient.name)
-        }
 
-    });
+    if (ingredients !== undefined) {
+        ingredients.forEach((ingredientId) => {
+            const foundIngredient = ingredientStore.find(
+                (ingredient) => {
+                    return ingredient._id === ingredientId
+                }
+            );
+            if (foundIngredient) {
+                allIngredientPrice += foundIngredient.price
+                ingredientsImage.push(foundIngredient.image_mobile);
+                priceIngredient.push(foundIngredient.price)
+                ingredientsName.push(foundIngredient.name)
+            }
+
+        });
+    }
+
+
 
     return (
         <div className={styles.containerDetailedOrder}>

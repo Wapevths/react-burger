@@ -10,7 +10,6 @@ export const getDetailedOrder = (id: string) => (dispatch:Dispatch) => {
     dispatch({type: GET_DETAILED_ORDER_REQUEST})
     request(`/orders/${id}`)
         .then((response) => {
-            console.log(response.orders)
             dispatch({type: GET_DETAILED_ORDER_SUCCESS, payload: response.orders})
         })
         .catch((err) => {

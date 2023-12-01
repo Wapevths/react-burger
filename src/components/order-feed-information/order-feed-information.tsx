@@ -1,9 +1,8 @@
-//@ts-nocheck
-import React, {useEffect} from 'react';
 import styles from './order-feed-information.module.css'
 import {useAppSelector} from "../../hooks/redux-hooks";
+import {IOrderLineData} from "../../services/web-socket/actions";
 const OrderFeedInformation = () => {
-    const myData = useAppSelector(state => state.orderLineDate.orderLineData)
+    const myData:IOrderLineData = useAppSelector(state => state.orderLineDate.orderLineData)
 
     return (
         <div className={styles.containerOrderFeedInformation}>

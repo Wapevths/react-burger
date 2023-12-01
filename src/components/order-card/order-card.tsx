@@ -1,12 +1,21 @@
-// @ts-nocheck
-import React, {useEffect, useState} from 'react';
 import styles from './order-card.module.css'
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useAppSelector} from "../../hooks/redux-hooks";
 import ImageCircle from "../image-circle/image-circle";
 import {Link, useLocation} from "react-router-dom";
-const OrderCard = ({ingredient, date, numberOrder, name}) => {
-    const ingredientStore = useAppSelector(state => state.ingredients.ingredients)
+import {ITypesIngredient} from "../../utils/types-ingredient";
+
+interface IOrderCardProps {
+    ingredient: {}[],
+    date: string,
+    numberOrder: number,
+    name: string,
+    isVisibleStatusOrder?: boolean,
+    status: string
+}
+
+const OrderCard = ({ingredient, date, numberOrder, name, isVisibleStatusOrder = false, status}:IOrderCardProps) => {
+    const ingredientStore:ITypesIngredient[] = useAppSelector(state => state.ingredients.ingredients)
     const ingredientsImage:string[] = []
     let allIngredientPrice:number = 0
     const location = useLocation()
@@ -33,6 +42,12 @@ const OrderCard = ({ingredient, date, numberOrder, name}) => {
                                date={new Date(date)}
                 />
             </section>
+            {isVisibleStatusOrder && (
+                <span className={`text text_type_main-default ${styles.statusOrder}`}>
+                    {status === "done" ? "Выполнен" : status === "pending" ? "В работе" : "Создан"}
+                </span>
+            )}
+
             <h3 className={`text text_type_main-medium`}>
                 {name}
             </h3>

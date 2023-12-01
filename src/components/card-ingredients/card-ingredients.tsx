@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './card-ingredients.module.css'
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";

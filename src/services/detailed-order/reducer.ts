@@ -3,16 +3,23 @@ import {
     GET_DETAILED_ORDER_REQUEST,
     GET_DETAILED_ORDER_SUCCESS
 } from './actions'
+import {IOrderData} from "../web-socket/actions";
 
-const initialState:any = {
-    isLoading: false,
-    isError: false,
-    order: []
-
+interface IDetailedOrderState {
+    isLoading: boolean;
+    isError: boolean;
+    order: IOrderData[];
 }
 
 
-export default (state = initialState, action:any) => {
+const initialState:IDetailedOrderState = {
+    isLoading: false,
+    isError: false,
+    order: []
+}
+
+
+export default (state = initialState, action:{ type: string, payload: unknown}) => {
     switch (action.type) {
         case GET_DETAILED_ORDER_REQUEST:
             return {...state, order: [], isLoading: true, isError: false}

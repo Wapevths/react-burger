@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {configureStore} from "@reduxjs/toolkit";
+import {configureStore, Dispatch} from "@reduxjs/toolkit";
 import ingredientsReducer from './ingredients/reducer'
 import usersReducer from './users/reducer'
 import detailedOrderReducer from './detailed-order/reducer'
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
 });
 
 // @ts-ignore
-export const store = configureStore({
+export const store =  configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(socketMiddleware(wsActions))
 })

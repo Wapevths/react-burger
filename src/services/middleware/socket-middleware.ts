@@ -3,7 +3,6 @@ import { AppDispatch, RootState } from "../store";
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import {getCookie} from "../../utils/cookie";
 
-//здесь указываются стоковые типы экшенов, которые есть у самого WS.
 export type TWSActionTypes = {
     wsConnect: ActionCreatorWithPayload<string>,
     wsDisconnect: ActionCreatorWithoutPayload,
@@ -14,9 +13,8 @@ export type TWSActionTypes = {
     onMessage: ActionCreatorWithPayload<any>,
 }
 
-//TODO
 // @ts-ignore
-export const socketMiddleware = (wsActions: TWSActionTypes): Middleware<{}, RootState, any> => {
+export const socketMiddleware = (wsActions: TWSActionTypes): Middleware<{}, RootState> => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
         let isConnected: boolean = false;
@@ -45,45 +43,30 @@ export const socketMiddleware = (wsActions: TWSActionTypes): Middleware<{}, Root
             }
             if (socket) {
                 socket.onopen = () => {
-                    //TODO
-// @ts-ignore
                     dispatch(wsConnecting())
-                    //TODO
-// @ts-ignore
                     dispatch(onOpen());
                     isConnected = true
                 };
 
                 socket.onerror = (event) => {
-                    //TODO
-// @ts-ignore
                     dispatch(onError(event.type));
                 };
 
                 socket.onmessage = (event) => {
                     const {data} = event;
                     const parsedData = JSON.parse(data);
-//TODO
-// @ts-ignore
                     dispatch(onMessage(parsedData));
                 };
 
                 socket.onclose = (event) => {
                     if (event.code !== 1000) {
-                        //TODO
-// @ts-ignore
                         dispatch(onError(event.code.toString()))
-                    }//TODO
-// @ts-ignore
+                    }
                     dispatch(onClose());
 
                     if (isConnected) {
-                        //TODO
-// @ts-ignore
                         dispatch(wsConnecting())
                         reconnectTimer = window.setTimeout(() => {
-                            //TODO
-// @ts-ignore
                             dispatch(wsConnect(url))
                         }, 3000)
                     }
@@ -94,8 +77,6 @@ export const socketMiddleware = (wsActions: TWSActionTypes): Middleware<{}, Root
                     isConnected = false;
                     reconnectTimer = 0;
                     socket.close();
-                    //TODO
-// @ts-ignore
                     dispatch(onClose());
                 }
             }

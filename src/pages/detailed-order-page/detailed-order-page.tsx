@@ -15,10 +15,6 @@ const DetailedOrderPage = () => {
         }
     }, [dispatch]);
 
-    useEffect(() => {
-        console.log(detailedOrder)
-    }, [detailedOrder]);
-
     return (
         <div className={`pt-30`}>
             <DetailedOrder numberOrder={detailedOrder[0]?.number}

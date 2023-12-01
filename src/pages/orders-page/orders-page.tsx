@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import styles from './orders-page.module.css'
 import {postLogoutUser} from "../../services/users/actions";
 import {NavLink, useNavigate} from "react-router-dom";
-import {useAppDispatch} from "../../hooks/redux-hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 import OrderFeedList from "../../components/order-feed-list/order-feed-list";
 import {orderLineConnect} from "../../services/web-socket/actions";
 
@@ -19,6 +19,8 @@ const OrderPage = () => {
     useEffect(() => {
         dispatch(orderLineConnect('wss://norma.nomoreparties.space/orders'))
     }, [dispatch])
+
+    const myDataFeed = useAppSelector(state => state.orderLineDate.orderLineData)
 
     return (
         <div className={styles.containerOrderPage}>
@@ -50,7 +52,7 @@ const OrderPage = () => {
                     </span>
                 </div>
             </div>
-            <OrderFeedList widthContainer={844} />
+            <OrderFeedList widthContainer={844} myDataFeed={myDataFeed} isVisibleStatusOrder={true}/>
         </div>
     );
 };
