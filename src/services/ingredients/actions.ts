@@ -1,4 +1,4 @@
-import {Dispatch, nanoid} from "@reduxjs/toolkit";
+import {nanoid} from "@reduxjs/toolkit";
 import {request} from "../../utils/fetch-request";
 import {ITypesIngredient} from "../../utils/types-ingredient";
 import {getCookie} from "../../utils/cookie";
@@ -19,6 +19,55 @@ export const addIngredient = (ingredientObj:ITypesIngredient) => ({
     type: ADD_INGREDIENT,
     payload: {...ingredientObj, uniqId: nanoid()}
 })
+
+export interface I_GET_INGREDIENTS_REQUEST_ACTION {
+  readonly type: typeof GET_INGREDIENTS_REQUEST,
+}
+export interface I_GET_INGREDIENTS_SUCCESS_ACTION {
+  readonly type: typeof GET_INGREDIENTS_SUCCESS,
+  payload: ITypesIngredient[]
+}
+export interface I_GET_INGREDIENTS_ERROR_ACTION {
+  readonly type: typeof GET_INGREDIENTS_ERROR,
+}
+export interface I_POST_ORDER_INGREDIENTS_REQUEST_ACTION {
+  readonly type: typeof POST_ORDER_INGREDIENTS_REQUEST,
+}
+export interface I_POST_ORDER_INGREDIENTS_SUCCESS_ACTION {
+  readonly type: typeof POST_ORDER_INGREDIENTS_SUCCESS,
+  payload: string
+}
+export interface I_POST_ORDER_INGREDIENTS_ERROR_ACTION {
+  readonly type: typeof POST_ORDER_INGREDIENTS_ERROR,
+}
+export interface I_ADD_INGREDIENT_ACTION {
+  readonly type: typeof ADD_INGREDIENT,
+  payload: ITypesIngredient
+}
+export interface I_DELETE_INGREDIENT_ACTION {
+  readonly type: typeof DELETE_INGREDIENT,
+  payload: ITypesIngredient
+}
+export interface I_GET_SELECT_INGREDIENT_ACTION {
+  readonly type: typeof GET_SELECT_INGREDIENT,
+  payload: string
+}
+export interface I_SORT_INGREDIENT_ACTION {
+  readonly type: typeof SORT_INGREDIENT,
+  payload: ITypesIngredient
+}
+export type TTypesAction =
+    I_GET_INGREDIENTS_REQUEST_ACTION |
+    I_GET_INGREDIENTS_SUCCESS_ACTION |
+    I_GET_INGREDIENTS_ERROR_ACTION |
+    I_POST_ORDER_INGREDIENTS_REQUEST_ACTION |
+    I_POST_ORDER_INGREDIENTS_SUCCESS_ACTION |
+    I_POST_ORDER_INGREDIENTS_ERROR_ACTION |
+    I_ADD_INGREDIENT_ACTION |
+    I_DELETE_INGREDIENT_ACTION |
+    I_GET_SELECT_INGREDIENT_ACTION |
+    I_SORT_INGREDIENT_ACTION
+
 
 export const getIngredients = () => (dispatch:AppDispatch) => {
     dispatch({type: GET_INGREDIENTS_REQUEST})

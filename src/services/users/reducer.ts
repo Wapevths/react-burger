@@ -16,17 +16,21 @@ import {
     POST_LOGOUT_USER_ERROR,
     POST_FORGOT_PASSWORD_REQUEST,
     POST_FORGOT_PASSWORD_SUCCESS,
-    POST_FORGOT_PASSWORD_ERROR, POST_RESET_PASSWORD_REQUEST, POST_RESET_PASSWORD_SUCCESS, POST_RESET_PASSWORD_ERROR,
+    POST_FORGOT_PASSWORD_ERROR,
+    POST_RESET_PASSWORD_REQUEST,
+    POST_RESET_PASSWORD_SUCCESS,
+    POST_RESET_PASSWORD_ERROR,
+    TTypesActions,
 } from './actions'
 
-interface IUser {
+export interface IUser {
     id: number;
     name: string;
     email: string;
 }
 
 interface IMyState {
-    user: IUser[]; // Замените 'User[]' на конкретный тип, представляющий данные пользователя
+    user: IUser[];
     isPostRegisterLoading: boolean;
     isPostRegisterError: boolean;
 
@@ -77,7 +81,7 @@ const initialState:IMyState = {
     isPostResetPasswordUserError: false,
 }
 
-export default (state = initialState, action: {type: string, payload: unknown}) => {
+export default (state = initialState, action: TTypesActions) => {
 
     switch (action.type) {
         case POST_REGISTER_USER_REQUEST: {
