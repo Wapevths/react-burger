@@ -1,7 +1,6 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
 import { AppDispatch, RootState } from "../store";
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import {getCookie} from "../../utils/cookie";
 
 export type TWSActionTypes = {
     wsConnect: ActionCreatorWithPayload<string>,
@@ -13,8 +12,7 @@ export type TWSActionTypes = {
     onMessage: ActionCreatorWithPayload<any>,
 }
 
-// @ts-ignore
-export const socketMiddleware = (wsActions: TWSActionTypes): Middleware<{}, RootState> => {
+export const socketMiddleware = (wsActions: TWSActionTypes): Middleware => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
         let isConnected: boolean = false;
@@ -44,7 +42,7 @@ export const socketMiddleware = (wsActions: TWSActionTypes): Middleware<{}, Root
                 };
 
                 socket.onerror = (event) => {
-                    dispatch(onError(event.type));
+                    dispatch(onError((event.type)));
                 };
 
                 socket.onmessage = (event) => {

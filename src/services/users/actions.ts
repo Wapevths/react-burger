@@ -105,6 +105,7 @@ export const postAuthorizeUser = (email:string, password:string, navigate:Functi
             console.error(err)
         });
 }
+
 export const patchUser = (name:string, email:string, password:string, setInputDisable:Function) => (dispatch:AppDispatch) => {
     dispatch({type: PATCH_USER_REQUEST})
     fetchWithRefresh('/auth/user', {
@@ -128,6 +129,7 @@ export const patchUser = (name:string, email:string, password:string, setInputDi
             console.error(err)
         });
 }
+
 export const postLogoutUser = (navigate:Function) => (dispatch:AppDispatch) => {
     dispatch({type: POST_LOGOUT_USER_REQUEST})
     fetchWithRefresh('/auth/logout', {
@@ -173,6 +175,7 @@ export const postRequestForgotPassword = (email:string, navigate:Function) => (d
             console.error(err)
         });
 }
+
 export const postRequestResetPassword = (password:string, code:string, navigate:Function) => (dispatch:AppDispatch) => {
     dispatch({type: POST_RESET_PASSWORD_REQUEST})
     fetchWithRefresh('/password-reset', {

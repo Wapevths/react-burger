@@ -1,3 +1,4 @@
+import { createAction } from "@reduxjs/toolkit";
 export const ORDER_LINE_CONNECTION: 'ORDER_LINE_CONNECTION' = 'ORDER_LINE_CONNECTION';
 export const ORDER_LINE_DISCONNECT: 'ORDER_LINE_DISCONNECT' = 'ORDER_LINE_DISCONNECT';
 export const WS_ORDER_LINE_CONNECTING: 'WS_ORDER_LINE_CONNECTING' = 'WS_ORDER_LINE_CONNECTING';
@@ -6,7 +7,6 @@ export const WS_ORDER_LINE_MESSAGE: 'WS_ORDER_LINE_MESSAGE' = 'WS_ORDER_LINE_MES
 export const WS_ORDER_LINE_CLOSE: 'WS_ORDER_LINE_CLOSE' = 'WS_ORDER_LINE_CLOSE';
 export const WS_ORDER_LINE_ERROR: 'WS_ORDER_LINE_ERROR' = 'WS_ORDER_LINE_ERROR';
 
-import { createAction } from "@reduxjs/toolkit";
 
 export interface IOrderData {
     ingredients: string[];
@@ -27,11 +27,11 @@ export interface IOrderLineData {
 
 //принимает экшен, в дженерике принимает 2 типа: тип payload и тип action. Тип action можно передать просто строкой без typeof
 const orderLineConnect = createAction<string, typeof ORDER_LINE_CONNECTION>(ORDER_LINE_CONNECTION);
-const orderLineDisconnect = createAction<undefined, typeof ORDER_LINE_DISCONNECT>(ORDER_LINE_DISCONNECT);
-const wsOrderLineConnecting = createAction<undefined, typeof WS_ORDER_LINE_CONNECTING>(WS_ORDER_LINE_CONNECTING);
-const wsOrderLineOpen = createAction<undefined, typeof WS_ORDER_LINE_OPEN>(WS_ORDER_LINE_OPEN);
+const orderLineDisconnect = createAction(ORDER_LINE_DISCONNECT);
+const wsOrderLineConnecting = createAction(WS_ORDER_LINE_CONNECTING);
+const wsOrderLineOpen = createAction(WS_ORDER_LINE_OPEN);
 const wsOrderLineMessage = createAction<IOrderLineData, typeof WS_ORDER_LINE_MESSAGE>(WS_ORDER_LINE_MESSAGE);
-const wsOrderLineClose = createAction<undefined, typeof WS_ORDER_LINE_CLOSE>(WS_ORDER_LINE_CLOSE);
+const wsOrderLineClose = createAction(WS_ORDER_LINE_CLOSE);
 const wsOrderLineError = createAction<string, typeof WS_ORDER_LINE_ERROR>(WS_ORDER_LINE_ERROR);
 
 export type UTOrderLineActions =

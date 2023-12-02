@@ -63,8 +63,8 @@ const BurgerConstructor = () => {
         }
     })
     const moveCard = (dragIndex:number, hoverIndex:number) => {
-        const arrayNoBun = data.filter((item:ITypesIngredient) => item.type !== 'bun')
-        const findBun = data.filter((item:ITypesIngredient) => item.type === 'bun')
+        const arrayNoBun = data.filter((item) => item.type !== 'bun')
+        const findBun = data.filter((item) => item.type === 'bun')
         const dragCard = arrayNoBun[dragIndex]
         const newCards = [...arrayNoBun]
         newCards.splice(dragIndex, 1)
@@ -91,7 +91,6 @@ const BurgerConstructor = () => {
                             добавьте булку
                         </div>
                     )}
-                    {/*deleteItem(item.uniqId)*/}
                     <section className={`custom-scroll ${styles.mainMapBurgerConstructor}`}>
 
                         {data.filter((item) => item.type !== 'bun').map((item, index) => (

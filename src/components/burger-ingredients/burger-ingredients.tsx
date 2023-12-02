@@ -11,7 +11,7 @@ import {ITypesIngredientNotRequired} from "../../utils/types-ingredient-not-requ
 const BurgerIngredients = () => {
     const [current, setCurrent] = useState<string>('Булки')
 
-    const data = useAppSelector((state) => state.ingredients.ingredients)
+    const data:ITypesIngredient[] = useAppSelector((state) => state.ingredients.ingredients)
     const dispatch = useAppDispatch()
 
 
@@ -60,7 +60,7 @@ const BurgerIngredients = () => {
                     Соберите бургер
                 </h1>
                 <section className={`${styles.containerTab} pb-10`}>
-                    {ingredients.map((item:{name: string, type: string}, index:number) => (
+                    {ingredients.map((item, index:number) => (
                         <Tab key={index} active={current === item.name} value={item.name} onClick={() => {}}>
                             {item.name}
                         </Tab>
@@ -72,7 +72,7 @@ const BurgerIngredients = () => {
                             Булки
                         </h2>
                         <section className={`${styles.ingredients}`}>
-                            {data.filter((item:ITypesIngredient) => item.type === 'bun').map((item:ITypesIngredient) => (
+                            {data.filter((item) => item.type === 'bun').map((item) => (
                                     <CardIngredients ingredient={item}
                                                      key={item._id}
                                                      getIngredient={getIngredient}
@@ -85,7 +85,7 @@ const BurgerIngredients = () => {
                             Соусы
                         </h2>
                         <section className={`${styles.ingredients}`}>
-                            {data.filter((item:ITypesIngredient) => item.type === 'sauce').map((item:ITypesIngredient) => (
+                            {data.filter((item) => item.type === 'sauce').map((item) => (
                                     <CardIngredients ingredient={item}
                                                      getIngredient={(ingredient) =>getIngredient(ingredient)}
                                                      key={item._id}
@@ -98,7 +98,7 @@ const BurgerIngredients = () => {
                             Начинки
                         </h2>
                         <section className={`${styles.ingredients}`}>
-                            {data.filter((item:ITypesIngredient) => item.type === 'main').map((item:ITypesIngredient) => (
+                            {data.filter((item) => item.type === 'main').map((item) => (
                                     <CardIngredients ingredient={item}
                                                      getIngredient={getIngredient}
                                                      key={item._id}
