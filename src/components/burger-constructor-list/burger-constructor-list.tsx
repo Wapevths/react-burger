@@ -1,5 +1,4 @@
-import React, {useRef} from 'react';
-import PropTypes from 'prop-types';
+import {useRef} from 'react';
 import styles from "./burger-constructor-list.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from "react-dnd";
@@ -77,12 +76,5 @@ const BurgerConstructorList = (props:IBurgerConstructorListProps) => {
     );
 };
 
-BurgerConstructorList.propTypes = {
-    data: PropTypes.object.isRequired,
-    deleteItem: PropTypes.func.isRequired,
-    moveCard: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-};
 
 export default BurgerConstructorList;

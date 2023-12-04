@@ -11,7 +11,7 @@ const ForgotPasswordPage = () => {
     const navigate = useNavigate()
     const handlePostRequestForgotPassword = (event:React.FormEvent) => {
         event.preventDefault();
-        dispatch<any>(postRequestForgotPassword(email, navigate))
+        dispatch(postRequestForgotPassword(email, navigate))
     }
 
     return (

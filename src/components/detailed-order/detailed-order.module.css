@@ -1,0 +1,29 @@
+.orderNumber {
+    display: flex;
+}
+.containerDetailedOrder {
+    display: flex;
+    width: 640px;
+    flex-direction: column;
+}
+.statusOrder {
+    color: #00CCCC;
+}
+.containerPrice {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+.containerDatePrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.containerBodyElement {
+    height: 300px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    width: 100%;
+}

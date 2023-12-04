@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import styles from './burger-constructor.module.css'
 import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import Modal from "../modal/modal";
@@ -16,6 +16,7 @@ import {getCookie} from "../../utils/cookie";
 import {Link} from "react-router-dom";
 import {ITypesIngredient} from "../../utils/types-ingredient";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
+import {ITypesIngredientNotRequired} from "../../utils/types-ingredient-not-required";
 
 
 const BurgerConstructor = () => {
@@ -24,16 +25,16 @@ const BurgerConstructor = () => {
     const {isModalOpen, openModal, closeModal} = useModal();
     const orderNumber = useAppSelector((state) => state.ingredients.orderIngredients)
     const isLoadingOrder = useAppSelector((state) => state.ingredients.isLoadingOrderIngredients)
-    const data = useAppSelector((state) => state.ingredients.constructorIngredients)
+    const data:ITypesIngredient[] & {uniqId: string} = useAppSelector((state) => state.ingredients.constructorIngredients)
     const dispatch = useAppDispatch()
     const accessToken:string|undefined = getCookie('token')
 
     useEffect(() => {
         let sum:number = 0
 
-        data.find((item:ITypesIngredient) => item.type === 'bun' ? setFirstElement(item) : "")
+        data.find((item) => item.type === 'bun' ? setFirstElement(item) : "")
 
-        data.forEach((x:ITypesIngredient) => {
+        data.forEach((x) => {
             if (x.type === 'bun') {
                 sum += (x.price * 2)
             } else {
@@ -47,29 +48,29 @@ const BurgerConstructor = () => {
     }, [data])
 
     const deleteItem = (uniqId:string) => {
-        dispatch<any>({type: DELETE_INGREDIENT, payload: uniqId})
+        dispatch({type: DELETE_INGREDIENT, payload: uniqId})
     }
 
     const postOrderIngredient = () => {
-        const orderIDAllIngredient = data.map((item:ITypesIngredient) => ({_id: item._id}))
-        dispatch<any>(postOrderIngredients(orderIDAllIngredient, openModal))
+        const orderIDAllIngredient:{}[] = data.map((item) => ({_id: item._id}))
+        dispatch(postOrderIngredients(orderIDAllIngredient, openModal))
     }
 
     const [, dropRef] = useDrop({
         accept: 'ingredient',
         drop(ingredientObj:ITypesIngredient) {
-            dispatch<any>(addIngredient(ingredientObj))
+            dispatch(addIngredient(ingredientObj))
         }
     })
     const moveCard = (dragIndex:number, hoverIndex:number) => {
-        const arrayNoBun = data.filter((item:ITypesIngredient) => item.type !== 'bun')
-        const findBun = data.filter((item:ITypesIngredient) => item.type === 'bun')
+        const arrayNoBun = data.filter((item) => item.type !== 'bun')
+        const findBun = data.filter((item) => item.type === 'bun')
         const dragCard = arrayNoBun[dragIndex]
         const newCards = [...arrayNoBun]
         newCards.splice(dragIndex, 1)
         newCards.splice(hoverIndex, 0, dragCard)
         newCards.push(...findBun)
-        dispatch<any>({type: SORT_INGREDIENT, payload: newCards})
+        dispatch({type: SORT_INGREDIENT, payload: newCards})
     }
 
     return (
@@ -90,17 +91,21 @@ const BurgerConstructor = () => {
                             добавьте булку
                         </div>
                     )}
-                    {/*deleteItem(item.uniqId)*/}
                     <section className={`custom-scroll ${styles.mainMapBurgerConstructor}`}>
 
-                        {data.filter((item:ITypesIngredient) => item.type !== 'bun').map((item:ITypesIngredient & {uniqId: string}, index:number) => (
-                            <BurgerConstructorList key={item.uniqId}
-                                                   data={item}
-                                                   index={index}
-                                                   id={item.uniqId}
-                                                   moveCard={moveCard}
-                                                   deleteItem={deleteItem}
-                            />
+                        {data.filter((item) => item.type !== 'bun').map((item, index) => (
+                            <section key={item.uniqId}>
+                                {item.uniqId !== undefined && (
+                                    <BurgerConstructorList
+                                                           data={item}
+                                                           index={index}
+                                                           id={item.uniqId}
+                                                           moveCard={moveCard}
+                                                           deleteItem={deleteItem}
+                                    />
+                                )}
+                            </section>
+
                         ))}
 
                     </section>

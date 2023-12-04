@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import AppHeader from "../app-header/app-header";
 import styles from "./app.module.css"
 import {getIngredients} from "../../services/ingredients/actions";
-import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import MainPage from "../../pages/main-page/main-page";
 import LoginPage from "../../pages/login-page/login-page";
 import RegisterPage from "../../pages/register-page/register-page";
@@ -19,6 +19,11 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import {useModal} from "../../hooks/useModal";
 import {ITypesIngredient} from "../../utils/types-ingredient";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
+import FeedPage from "../../pages/feed-page/feed-page";
+import DetailedOrderPage from "../../pages/detailed-order-page/detailed-order-page";
+import {getDetailedOrder} from "../../services/detailed-order/actions";
+import DetailedOrder from "../detailed-order/detailed-order";
+import OrderPage from "../../pages/orders-page/orders-page";
 
 const App = () => {
     const dispatch = useAppDispatch()
@@ -27,14 +32,25 @@ const App = () => {
     let state = location.state as { backgroundLocation?: Location };
     const {isModalOpen, openModal, closeModal} = useModal();
     const navigate = useNavigate()
-    const ingredient = useAppSelector((state) => state.ingredients.ingredients)
-    const [date, setDate] = useState<ITypesIngredient|object>({});
+    const ingredient:ITypesIngredient[] = useAppSelector((state) => state.ingredients.ingredients)
+    const detailedOrder = useAppSelector(state => state.detailedOrder.order)
+    const [date, setDate] = useState<ITypesIngredient|undefined>(undefined);
+
+
+
     useEffect(()=> {
         if (ingredient.length > 0) {
-            // @ts-ignore
             setDate(ingredient.find(item => item._id === location.pathname.split('/')[2]))
         }
     }, [ingredient, location])
+
+    useEffect(() => {
+        if (location.pathname.split('/')[1] === "feed") {
+            dispatch(getDetailedOrder(location.pathname.split('/')[2]))
+        } else if (location.pathname.split('/')[2] === "orders") {
+            dispatch(getDetailedOrder(location.pathname.split('/')[3]))
+        }
+    }, [dispatch, location.pathname.split('/')[2], location.pathname.split('/')[3]]);
 
     useEffect(() => {
         dispatch(getIngredients())
@@ -48,9 +64,27 @@ const App = () => {
     }, [date]);
 
     const handleCloseModal = () => {
-        navigate('/')
-        closeModal()
+        if (location.pathname.split('/')[1] === "feed") {
+            navigate('/feed')
+            closeModal()
+        } else if (location.pathname.split('/')[2] === "orders") {
+            navigate('/profile/orders')
+            closeModal()
+        }
+        else {
+            navigate('/')
+            closeModal()
+        }
     }
+
+    useEffect(() => {
+        if (location.pathname.split('/')[1] === "feed") {
+            openModal()
+        } else if (location.pathname.split('/')[2] === "orders") {
+            openModal()
+        }
+    }, [location]);
+
 
 
     return (
@@ -59,7 +93,19 @@ const App = () => {
             <main className={styles.containerBurger}>
                 <Routes location={state?.backgroundLocation || location}>
                     <Route path="/" element={<MainPage />} />
-                    <Route path="/profile" element={<ProtectedRouteElement><ProfilePage/></ProtectedRouteElement>}/>
+                    <Route path="/feed" element={<FeedPage />} />
+                    <Route path="/feed/:id" element={<DetailedOrderPage />} />
+                    <Route path='/profile' element={
+                        <ProtectedRouteElement>
+                            <ProfilePage/>
+                        </ProtectedRouteElement>
+                    }/>
+                    <Route path="profile/orders" element={<ProtectedRouteElement>
+                        <OrderPage/>
+                    </ProtectedRouteElement>} />
+                    <Route path="profile/orders/:id" element={<ProtectedRouteElement>
+                        <DetailedOrderPage/>
+                    </ProtectedRouteElement>} />
                     <Route path="/login" element={<ProtectedRouteElement onlyUnAuth><LoginPage /></ProtectedRouteElement>} />
                     <Route path="/register" element={<ProtectedRouteElement onlyUnAuth><RegisterPage /></ProtectedRouteElement>} />
                     <Route path="/forgot-password" element={<ProtectedRouteElement onlyUnAuth><ForgotPasswordPage /></ProtectedRouteElement>} />
@@ -83,6 +129,38 @@ const App = () => {
 
                                 )}
 
+                            </>
+
+                        } />
+                        <Route path="feed/:id" element={
+                            <>
+                                        {isModalOpen && (
+                                            <Modal title="" setActive={handleCloseModal}>
+                                                <DetailedOrder numberOrder={detailedOrder[0]?.number}
+                                                               statusOrder={detailedOrder[0]?.status}
+                                                               name={detailedOrder[0]?.name}
+                                                               numberPositionCenter={false}
+                                                               ingredients={detailedOrder[0]?.ingredients}
+                                                               date={detailedOrder[0]?.createdAt}
+                                                />
+                                            </Modal>
+                                        )}
+                            </>
+
+                        } />
+                        <Route path="profile/orders/:id" element={
+                            <>
+                                        {isModalOpen && (
+                                            <Modal title="" setActive={handleCloseModal}>
+                                                <DetailedOrder numberOrder={detailedOrder[0]?.number}
+                                                               statusOrder={detailedOrder[0]?.status}
+                                                               name={detailedOrder[0]?.name}
+                                                               numberPositionCenter={false}
+                                                               ingredients={detailedOrder[0]?.ingredients}
+                                                               date={detailedOrder[0]?.createdAt}
+                                                />
+                                            </Modal>
+                                        )}
                             </>
 
                         } />

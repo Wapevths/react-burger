@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import {createPortal} from "react-dom";
 import styles from './modal.module.css'
@@ -47,10 +46,5 @@ const Modal = (props:IModalProps) => {
     );
 };
 
-Modal.propTypes = {
-    children: PropTypes.element,
-    title: PropTypes.string,
-    setActive: PropTypes.func.isRequired
-};
 
 export default Modal;

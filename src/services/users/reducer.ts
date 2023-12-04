@@ -16,10 +16,46 @@ import {
     POST_LOGOUT_USER_ERROR,
     POST_FORGOT_PASSWORD_REQUEST,
     POST_FORGOT_PASSWORD_SUCCESS,
-    POST_FORGOT_PASSWORD_ERROR, POST_RESET_PASSWORD_REQUEST, POST_RESET_PASSWORD_SUCCESS, POST_RESET_PASSWORD_ERROR,
+    POST_FORGOT_PASSWORD_ERROR,
+    POST_RESET_PASSWORD_REQUEST,
+    POST_RESET_PASSWORD_SUCCESS,
+    POST_RESET_PASSWORD_ERROR,
+    TTypesActions,
 } from './actions'
 
-const initialState:any = {
+export interface IUser {
+    id: number;
+    name: string;
+    email: string;
+}
+
+interface IMyState {
+    user: IUser[];
+    isPostRegisterLoading: boolean;
+    isPostRegisterError: boolean;
+
+    isPostAuthorizeLoading: boolean;
+    isPostAuthorizeError: boolean;
+
+    isGetUserLoading: boolean;
+    isGetUserError: boolean;
+
+    isPatchUserLoading: boolean;
+    isPatchUserError: boolean;
+
+    isPostLogoutUserLoading: boolean;
+    isPostLogoutUserError: boolean;
+
+    isEmailSend: boolean;
+    isPostForgotPasswordUserLoading: boolean;
+    isPostForgotPasswordUserError: boolean;
+
+    isPostResetPasswordUserLoading: boolean;
+    isPostResetPasswordUserError: boolean;
+}
+
+
+const initialState:IMyState = {
     user: [],
 
     isPostRegisterLoading: false,
@@ -45,7 +81,7 @@ const initialState:any = {
     isPostResetPasswordUserError: false,
 }
 
-export default (state = initialState, action:any) => {
+export default (state = initialState, action: TTypesActions) => {
 
     switch (action.type) {
         case POST_REGISTER_USER_REQUEST: {

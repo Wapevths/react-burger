@@ -27,7 +27,7 @@ const ProfilePage = () => {
 
     const handlePostRequestUpdateUser = (event:React.FormEvent) => {
         event.preventDefault()
-        dispatch<any>(patchUser(name, email, password, setIsInputDisabled))
+        dispatch(patchUser(name, email, password, setIsInputDisabled))
     }
 
     useEffect(() => {
@@ -55,7 +55,7 @@ const ProfilePage = () => {
     }, [user])
 
     const handleLogout = () => {
-        dispatch<any>(postLogoutUser(navigate))
+        dispatch(postLogoutUser(navigate))
     }
 
     const inputChangeValue = () => {
@@ -69,15 +69,15 @@ const ProfilePage = () => {
                     <NavLink to='/profile' className={styles.link}>
                         {({isActive}) => (
                             <span className={`${isActive ? styles.selectLink : ""} text text_type_main-medium`}>
-                                Профиль
-                            </span>
+                                                Профиль
+                                            </span>
                         )}
                     </NavLink>
                     <NavLink to='orders' className={styles.link}>
                         {({isActive}) => (
                             <span className={`${isActive ? styles.selectLink : ""} text text_type_main-medium`}>
-                                История заказов
-                            </span>
+                                                История заказов
+                                            </span>
                         )}
                     </NavLink>
                     <button className={`${styles.exitButton} text text_type_main-medium`}
@@ -88,14 +88,13 @@ const ProfilePage = () => {
                 </div>
 
                 <div className={styles.containerInfoThisPage}>
-                    <span className={`${styles.infoThisPage} text text_type_main-default mt-14 pt-14`}>
-                        В этом разделе вы можете
-                    </span>
+                                    <span className={`${styles.infoThisPage} text text_type_main-default mt-14 pt-14`}>
+                                        В этом разделе вы можете
+                                    </span>
                     <span className={`${styles.infoThisPage} text text_type_main-default`}>
-                        изменить свои персональные данные
-                    </span>
+                                        изменить свои персональные данные
+                                    </span>
                 </div>
-
             </div>
             <form onSubmit={handlePostRequestUpdateUser}>
                 <Input value={name}

@@ -8,10 +8,23 @@ import {
     ADD_INGREDIENT,
     DELETE_INGREDIENT,
     SORT_INGREDIENT,
-    GET_SELECT_INGREDIENT,
+    GET_SELECT_INGREDIENT, TTypesAction,
 } from './actions'
+import {ITypesIngredient} from "../../utils/types-ingredient";
 
-const initialState:any = {
+interface IMyState {
+    ingredients: ITypesIngredient[];
+    selectedIngredients: ITypesIngredient[];
+    isLoading: boolean;
+    error: boolean;
+    selectIngredient: string;
+    constructorIngredients: ITypesIngredient[];
+    orderIngredients: string;
+    isLoadingOrderIngredients: boolean;
+    errorOrderIngredients: boolean;
+}
+
+const initialState:IMyState = {
     ingredients: [],
     selectedIngredients: [],
     isLoading: false,
@@ -21,11 +34,10 @@ const initialState:any = {
     orderIngredients: '',
     isLoadingOrderIngredients: false,
     errorOrderIngredients: false,
-
 }
 
 
-export default (state = initialState, action:any) => {
+export default (state = initialState, action: TTypesAction) => {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return {...state, isLoading: true}

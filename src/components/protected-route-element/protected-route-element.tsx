@@ -1,7 +1,6 @@
 import React from 'react';
 import {Navigate, useLocation} from "react-router-dom";
 import {getCookie} from "../../utils/cookie";
-import PropTypes from "prop-types";
 
 interface IProtectedRouteElementProps {
     onlyUnAuth?: boolean,
@@ -27,9 +26,5 @@ const ProtectedRouteElement =  ({onlyUnAuth, children}:IProtectedRouteElementPro
     return children
 };
 
-ProtectedRouteElement.propTypes = {
-    onlyUnAuth: PropTypes.bool,
-    children: PropTypes.element.isRequired
-};
 
 export default ProtectedRouteElement;

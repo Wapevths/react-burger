@@ -11,7 +11,7 @@ const LoginPage = () => {
     const navigate = useNavigate()
     const handlePostRequestLogin = (event:React.FormEvent) => {
         event.preventDefault();
-        dispatch<any>(postAuthorizeUser(email, password, navigate))
+        dispatch(postAuthorizeUser(email, password, navigate))
     }
 
     return (
