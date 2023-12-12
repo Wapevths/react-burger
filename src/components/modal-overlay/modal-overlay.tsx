@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './modal-overlay.module.css'
 interface IModalOverlay {
     onClose: () => void,
@@ -13,11 +12,6 @@ const ModalOverlay = (props:IModalOverlay) => {
         </section>
 
     );
-};
-
-ModalOverlay.propTypes = {
-    children: PropTypes.element,
-    onClose: PropTypes.func.isRequired
 };
 
 export default ModalOverlay;

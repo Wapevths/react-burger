@@ -1,7 +1,7 @@
 import {
     GET_DETAILED_ORDER_ERROR,
     GET_DETAILED_ORDER_REQUEST,
-    GET_DETAILED_ORDER_SUCCESS
+    GET_DETAILED_ORDER_SUCCESS, TTodoActions
 } from './actions'
 import {IOrderData} from "../web-socket/actions";
 
@@ -19,7 +19,7 @@ const initialState:IDetailedOrderState = {
 }
 
 
-export default (state = initialState, action:{ type: string, payload: unknown}) => {
+export default (state = initialState, action:TTodoActions) => {
     switch (action.type) {
         case GET_DETAILED_ORDER_REQUEST:
             return {...state, order: [], isLoading: true, isError: false}
