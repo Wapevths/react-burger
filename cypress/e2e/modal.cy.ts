@@ -1,6 +1,6 @@
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('/')
 
     cy.get('#card_ingredient').click();
 
