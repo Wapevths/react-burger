@@ -1,43 +1,72 @@
-import React, {useEffect} from 'react';
-import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from './detailed-order.module.css'
-import {useAppSelector} from "../../hooks/redux-hooks";
+import {FC} from "react";
+import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './detailed-order.module.css';
+import { useAppSelector } from "../../hooks/redux-hooks";
 import DetailedOrderElement from "../detailed-order-element/detailed-order-element";
-import {ITypesIngredient} from "../../utils/types-ingredient";
+import { ITypesIngredient } from "../../utils/types-ingredient";
 
 interface IDetailedOrderProps {
-    numberPositionCenter?: boolean,
-    numberOrder: number,
-    statusOrder: string,
-    name: string,
-    date: string,
-    ingredients: string[],
-
+    numberPositionCenter?: boolean;
+    numberOrder: number;
+    statusOrder: string;
+    name: string;
+    date: string;
+    ingredients: string[];
 }
 
-const DetailedOrder = ({numberPositionCenter = true, numberOrder, statusOrder, name, date, ingredients}:IDetailedOrderProps) => {
-    const ingredientStore:ITypesIngredient[] = useAppSelector(state => state.ingredients.ingredients)
-    const ingredientsImage:string[] = []
-    const ingredientsName:string[] = []
-    let allIngredientPrice:number = 0
-    const priceIngredient:number[] = []
+interface IConsolidatedIngredients {
+    image: string[];
+    count: number[];
+}
+
+const DetailedOrder: FC<IDetailedOrderProps> = ({
+                                                          numberPositionCenter = true,
+                                                          numberOrder,
+                                                          statusOrder,
+                                                          name,
+                                                          date,
+                                                          ingredients,
+                                                      }: IDetailedOrderProps) => {
+    const ingredientStore: ITypesIngredient[] = useAppSelector(state => state.ingredients.ingredients);
+    const ingredientsImage: string[] = [];
+    const ingredientsName: string[] = [];
+    let allIngredientPrice: number = 0;
+    const priceIngredient: number[] = [];
 
     if (ingredients !== undefined) {
         ingredients.forEach((ingredientId) => {
-            const foundIngredient = ingredientStore.find(
-                (ingredient) => {
-                    return ingredient._id === ingredientId
-                }
-            );
+            const foundIngredient = ingredientStore.find((ingredient) => ingredient._id === ingredientId);
             if (foundIngredient) {
-                allIngredientPrice += foundIngredient.price
+                allIngredientPrice += foundIngredient.price;
                 ingredientsImage.push(foundIngredient.image_mobile);
-                priceIngredient.push(foundIngredient.price)
-                ingredientsName.push(foundIngredient.name)
+                priceIngredient.push(foundIngredient.price);
+                ingredientsName.push(foundIngredient.name);
             }
-
         });
     }
+
+    function consolidateIngredientsAndCountDuplicates(order: string[]): IConsolidatedIngredients {
+        const ingredientsCount: Record<string, number> = {};
+
+        order.forEach((ingredient) => {
+            ingredientsCount[ingredient] = (ingredientsCount[ingredient] || 0) + 1;
+        });
+
+        const image: string[] = [];
+        const count: number[] = [];
+
+        for (const ingredient in ingredientsCount) {
+            image.push(ingredient);
+            count.push(ingredientsCount[ingredient]);
+        }
+
+        return { image, count };
+    }
+
+    const result: IConsolidatedIngredients = consolidateIngredientsAndCountDuplicates(ingredientsImage);
+
+
+
 
 
 
@@ -60,11 +89,12 @@ const DetailedOrder = ({numberPositionCenter = true, numberOrder, statusOrder, n
             </h3>
 
             <section className={`custom-scroll pr-6 ${styles.containerBodyElement}`}>
-                {ingredientsImage.map((item, index) => (
+                {result.image.map((item, index) => (
                         <DetailedOrderElement image={item}
                                               price={priceIngredient[index]}
                                               name={ingredientsName[index]}
                                               key={index}
+                                              count={result.count[index]}
                         />
                 ))}
             </section>

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './order-details.module.css'
 import CheckImage from '../../images/graphics.svg'
 
@@ -35,10 +34,6 @@ const OrderDetails = (props:IOrderDetails) => {
             </span>
         </section>
     );
-};
-
-OrderDetails.propTypes = {
-    orderConstructor: PropTypes.object.isRequired
 };
 
 export default OrderDetails;

@@ -1,8 +1,13 @@
 import React from 'react';
 import styles from "./image-circle.module.css";
 
-// @ts-ignore
-const ImageCircle = ({image, ingredientLength, index}) => {
+interface IImageCircleProps {
+    image: string,
+    ingredientLength: number,
+    index: number
+}
+
+const ImageCircle = ({image, ingredientLength, index}:IImageCircleProps) => {
     return (
         <>
             {index < 6 && (

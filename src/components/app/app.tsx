@@ -32,15 +32,14 @@ const App = () => {
     let state = location.state as { backgroundLocation?: Location };
     const {isModalOpen, openModal, closeModal} = useModal();
     const navigate = useNavigate()
-    const ingredient = useAppSelector((state) => state.ingredients.ingredients)
+    const ingredient:ITypesIngredient[] = useAppSelector((state) => state.ingredients.ingredients)
     const detailedOrder = useAppSelector(state => state.detailedOrder.order)
-    const [date, setDate] = useState<ITypesIngredient|object>({});
+    const [date, setDate] = useState<ITypesIngredient|undefined>(undefined);
 
 
 
     useEffect(()=> {
         if (ingredient.length > 0) {
-            // @ts-ignore
             setDate(ingredient.find(item => item._id === location.pathname.split('/')[2]))
         }
     }, [ingredient, location])
