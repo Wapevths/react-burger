@@ -1,4 +1,4 @@
-import reducer from './reducer';
+import reducer, {initialState} from './reducer';
 import {
     GET_DETAILED_ORDER_REQUEST,
     GET_DETAILED_ORDER_SUCCESS,
@@ -6,11 +6,6 @@ import {
 } from './actions';
 
 describe('Detailed Order Reducer', () => {
-    const initialState = {
-        isLoading: false,
-        isError: false,
-        order: [],
-    };
 
     it('should return the initial state', () => {
         expect(reducer(undefined, {})).toEqual(initialState);

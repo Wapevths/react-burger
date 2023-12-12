@@ -1,4 +1,4 @@
-import reducer from './reducer';
+import reducer, {initialState} from './reducer';
 import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
@@ -13,17 +13,6 @@ import {
 } from './actions';
 
 describe('User reducer', () => {
-    const initialState = {
-        ingredients: [],
-        selectedIngredients: [],
-        isLoading: false,
-        error: false,
-        selectIngredient: '',
-        constructorIngredients: [],
-        orderIngredients: '',
-        isLoadingOrderIngredients: false,
-        errorOrderIngredients: false,
-    };
 
     it('should handle GET_INGREDIENTS_REQUEST', () => {
         const action = { type: GET_INGREDIENTS_REQUEST };

@@ -1,8 +1,8 @@
 import {request} from "../../utils/fetch-request";
 import {fetchWithRefresh} from "../../utils/fetch-request-protect";
 import {deleteCookie, getCookie, setCookie} from "../../utils/cookie";
-import {Dispatch} from "@reduxjs/toolkit";
 import {AppDispatch} from "../store";
+import {IUser} from "./reducer";
 export const POST_REGISTER_USER_REQUEST:'POST_REGISTER_USER_REQUEST' = 'POST_REGISTER_USER_REQUEST'
 export const POST_REGISTER_USER_SUCCESS:'POST_REGISTER_USER_SUCCESS' = 'POST_REGISTER_USER_SUCCESS'
 export const POST_REGISTER_USER_ERROR:'POST_REGISTER_USER_ERROR' = 'POST_REGISTER_USER_ERROR'
@@ -29,6 +29,101 @@ export const POST_FORGOT_PASSWORD_ERROR:"POST_FORGOT_PASSWORD_ERROR" = "POST_FOR
 export const POST_RESET_PASSWORD_REQUEST:"POST_RESET_PASSWORD_REQUEST" = "POST_RESET_PASSWORD_REQUEST"
 export const POST_RESET_PASSWORD_SUCCESS:"POST_RESET_PASSWORD_SUCCESS" = "POST_RESET_PASSWORD_SUCCESS"
 export const POST_RESET_PASSWORD_ERROR:"POST_RESET_PASSWORD_ERROR" = "POST_RESET_PASSWORD_ERROR"
+
+export interface I_POST_REGISTER_USER_REQUEST_ACTION {
+    readonly type: typeof POST_REGISTER_USER_REQUEST,
+}
+export interface I_POST_REGISTER_USER_SUCCESS_ACTION {
+    readonly type: typeof POST_REGISTER_USER_SUCCESS,
+    payload: IUser[]
+}
+export interface I_POST_REGISTER_USER_ERROR_ACTION {
+    readonly type: typeof POST_REGISTER_USER_ERROR,
+}
+export interface I_POST_AUTHORIZE_USER_REQUEST_ACTION {
+    readonly type: typeof POST_AUTHORIZE_USER_REQUEST,
+}
+export interface I_POST_AUTHORIZE_USER_SUCCESS_ACTION {
+    readonly type: typeof POST_AUTHORIZE_USER_SUCCESS,
+    payload: IUser
+}
+export interface I_POST_AUTHORIZE_USER_ERROR_ACTION {
+    readonly type: typeof POST_AUTHORIZE_USER_ERROR,
+}
+export interface I_GET_USER_REQUEST_ACTION {
+    readonly type: typeof GET_USER_REQUEST,
+}
+export interface I_GET_USER_SUCCESS_ACTION {
+    readonly type: typeof GET_USER_SUCCESS,
+    payload: IUser
+}
+export interface I_GET_USER_ERROR_ACTION {
+    readonly type: typeof GET_USER_ERROR,
+}
+export interface I_PATCH_USER_REQUEST_ACTION {
+    readonly type: typeof PATCH_USER_REQUEST,
+}
+export interface I_PATCH_USER_SUCCESS_ACTION {
+    readonly type: typeof PATCH_USER_SUCCESS,
+    payload: IUser
+}
+export interface I_PATCH_USER_ERROR_ACTION {
+    readonly type: typeof PATCH_USER_ERROR,
+}
+export interface I_POST_LOGOUT_USER_REQUEST_ACTION {
+    readonly type: typeof POST_LOGOUT_USER_REQUEST,
+}
+export interface I_POST_LOGOUT_USER_SUCCESS_ACTION {
+    readonly type: typeof POST_LOGOUT_USER_SUCCESS,
+    payload: IUser
+}
+export interface I_POST_LOGOUT_USER_ERROR_ACTION {
+    readonly type: typeof POST_LOGOUT_USER_ERROR,
+}
+export interface I_POST_FORGOT_PASSWORD_REQUEST_ACTION {
+    readonly type: typeof POST_FORGOT_PASSWORD_REQUEST,
+}
+export interface I_POST_FORGOT_PASSWORD_SUCCESS_ACTION {
+    readonly type: typeof POST_FORGOT_PASSWORD_SUCCESS,
+    payload: IUser
+}
+export interface I_POST_FORGOT_PASSWORD_ERROR_ACTION {
+    readonly type: typeof POST_FORGOT_PASSWORD_ERROR,
+}
+export interface I_POST_RESET_PASSWORD_REQUEST_ACTION {
+    readonly type: typeof POST_RESET_PASSWORD_REQUEST,
+}
+export interface I_POST_RESET_PASSWORD_SUCCESS_ACTION {
+    readonly type: typeof POST_RESET_PASSWORD_SUCCESS,
+    payload: IUser
+}
+export interface I_POST_RESET_PASSWORD_ERROR_ACTION {
+    readonly type: typeof POST_RESET_PASSWORD_ERROR,
+}
+
+export type TTypesActions =
+    I_POST_REGISTER_USER_REQUEST_ACTION |
+    I_POST_REGISTER_USER_SUCCESS_ACTION |
+    I_POST_REGISTER_USER_ERROR_ACTION |
+    I_POST_AUTHORIZE_USER_REQUEST_ACTION |
+    I_POST_AUTHORIZE_USER_SUCCESS_ACTION |
+    I_POST_AUTHORIZE_USER_ERROR_ACTION |
+    I_GET_USER_REQUEST_ACTION |
+    I_GET_USER_SUCCESS_ACTION |
+    I_GET_USER_ERROR_ACTION |
+    I_PATCH_USER_REQUEST_ACTION |
+    I_PATCH_USER_SUCCESS_ACTION |
+    I_PATCH_USER_ERROR_ACTION |
+    I_POST_LOGOUT_USER_REQUEST_ACTION |
+    I_POST_LOGOUT_USER_SUCCESS_ACTION |
+    I_POST_LOGOUT_USER_ERROR_ACTION |
+    I_POST_FORGOT_PASSWORD_REQUEST_ACTION |
+    I_POST_FORGOT_PASSWORD_SUCCESS_ACTION |
+    I_POST_FORGOT_PASSWORD_ERROR_ACTION |
+    I_POST_RESET_PASSWORD_REQUEST_ACTION |
+    I_POST_RESET_PASSWORD_SUCCESS_ACTION |
+    I_POST_RESET_PASSWORD_ERROR_ACTION
+
 
 export const postCreateUser = (email:string, password:string, name:string, navigate:Function) => (dispatch: AppDispatch) => {
     dispatch({type: POST_REGISTER_USER_REQUEST})
@@ -59,7 +154,7 @@ export const postCreateUser = (email:string, password:string, name:string, navig
         });
 }
 
-export const getUser = () => (dispatch:Dispatch) => {
+export const getUser = () => (dispatch:AppDispatch) => {
     dispatch({type: GET_USER_REQUEST})
 
     fetchWithRefresh('/auth/user', {
@@ -91,20 +186,21 @@ export const postAuthorizeUser = (email:string, password:string, navigate:Functi
             // "authorization": `Bearer ${getCookie('token')}`
         },
     }).then(res => {
-            let authToken = res.accessToken.split('Bearer ')[1];
-            console.log(res)
-            if (authToken) {
-                setCookie('token', authToken);
-            }
-            setCookie("refreshToken", res.refreshToken);
-            navigate('/profile')
-            dispatch({type: POST_AUTHORIZE_USER_SUCCESS, payload: res.user})
-        })
+        let authToken = res.accessToken.split('Bearer ')[1];
+        console.log(res)
+        if (authToken) {
+            setCookie('token', authToken);
+        }
+        setCookie("refreshToken", res.refreshToken);
+        navigate('/profile')
+        dispatch({type: POST_AUTHORIZE_USER_SUCCESS, payload: res.user})
+    })
         .catch((err) => {
             dispatch({type: POST_AUTHORIZE_USER_ERROR})
             console.error(err)
         });
 }
+
 export const patchUser = (name:string, email:string, password:string, setInputDisable:Function) => (dispatch:AppDispatch) => {
     dispatch({type: PATCH_USER_REQUEST})
     fetchWithRefresh('/auth/user', {
@@ -128,6 +224,7 @@ export const patchUser = (name:string, email:string, password:string, setInputDi
             console.error(err)
         });
 }
+
 export const postLogoutUser = (navigate:Function) => (dispatch:AppDispatch) => {
     dispatch({type: POST_LOGOUT_USER_REQUEST})
     fetchWithRefresh('/auth/logout', {
@@ -173,6 +270,7 @@ export const postRequestForgotPassword = (email:string, navigate:Function) => (d
             console.error(err)
         });
 }
+
 export const postRequestResetPassword = (password:string, code:string, navigate:Function) => (dispatch:AppDispatch) => {
     dispatch({type: POST_RESET_PASSWORD_REQUEST})
     fetchWithRefresh('/password-reset', {

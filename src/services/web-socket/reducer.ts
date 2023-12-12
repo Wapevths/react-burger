@@ -19,7 +19,7 @@ interface IOrderLineState {
     error: string;
 }
 
-const orderLineInitialState: IOrderLineState = {
+export const orderLineInitialState: IOrderLineState = {
     status: WebSocketStatus.OFFLINE,
     orderLineData: {
         success: false,

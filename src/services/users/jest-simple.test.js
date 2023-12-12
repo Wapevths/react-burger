@@ -1,4 +1,4 @@
-import reducer from './reducer';
+import reducer, {initialState} from './reducer';
 import {
     POST_REGISTER_USER_REQUEST,
     POST_REGISTER_USER_SUCCESS,
@@ -24,24 +24,6 @@ import {
 } from './actions';
 
 describe('User Reducer', () => {
-    const initialState = {
-        user: [],
-        isPostRegisterLoading: false,
-        isPostRegisterError: false,
-        isPostAuthorizeLoading: false,
-        isPostAuthorizeError: false,
-        isGetUserLoading: false,
-        isGetUserError: false,
-        isPatchUserLoading: false,
-        isPatchUserError: false,
-        isPostLogoutUserLoading: false,
-        isPostLogoutUserError: false,
-        isEmailSend: false,
-        isPostForgotPasswordUserLoading: false,
-        isPostForgotPasswordUserError: false,
-        isPostResetPasswordUserLoading: false,
-        isPostResetPasswordUserError: false,
-    };
 
     it('should handle POST_REGISTER_USER_REQUEST', () => {
         const action = { type: POST_REGISTER_USER_REQUEST };
