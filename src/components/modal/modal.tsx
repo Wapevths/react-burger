@@ -35,7 +35,7 @@ const Modal = (props:IModalProps) => {
                         <h2 className={`text text_type_main-large ${styles.titleIngredient}`}>
                             {props.title}
                         </h2>
-                    <button className={styles.closeButton} onClick={handleCloseModal}>
+                    <button className={styles.closeButton} onClick={handleCloseModal} id="close-button">
                         <CloseIcon type="primary"/>
                     </button>
                 </div>

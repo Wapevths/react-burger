@@ -1,3 +1,4 @@
+import {createAction} from "@reduxjs/toolkit";
 export const ORDER_LINE_CONNECTION: 'ORDER_LINE_CONNECTION' = 'ORDER_LINE_CONNECTION';
 export const ORDER_LINE_DISCONNECT: 'ORDER_LINE_DISCONNECT' = 'ORDER_LINE_DISCONNECT';
 export const WS_ORDER_LINE_CONNECTING: 'WS_ORDER_LINE_CONNECTING' = 'WS_ORDER_LINE_CONNECTING';
@@ -5,8 +6,6 @@ export const WS_ORDER_LINE_OPEN: 'WS_ORDER_LINE_OPEN' = 'WS_ORDER_LINE_OPEN';
 export const WS_ORDER_LINE_MESSAGE: 'WS_ORDER_LINE_MESSAGE' = 'WS_ORDER_LINE_MESSAGE';
 export const WS_ORDER_LINE_CLOSE: 'WS_ORDER_LINE_CLOSE' = 'WS_ORDER_LINE_CLOSE';
 export const WS_ORDER_LINE_ERROR: 'WS_ORDER_LINE_ERROR' = 'WS_ORDER_LINE_ERROR';
-
-import { createAction } from "@reduxjs/toolkit";
 
 export interface IOrderData {
     ingredients: string[];

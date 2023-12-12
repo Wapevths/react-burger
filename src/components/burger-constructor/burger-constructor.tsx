@@ -73,7 +73,7 @@ const BurgerConstructor = () => {
     }
 
     return (
-        <main className={styles.mainContainerBurgerConstructor} ref={dropRef}>
+        <main className={styles.mainContainerBurgerConstructor} id="burger-constructor" ref={dropRef}>
             {data.length >= 1 ? (
                 <div className={styles.mainContainer}>
                     {firstElement.name !== undefined ? (
@@ -127,12 +127,12 @@ const BurgerConstructor = () => {
                             <CurrencyIcon type={"primary"}/>
                         </div>
                         {accessToken ? (
-                            <Button htmlType="button" onClick={postOrderIngredient} type="primary" size="medium">
+                            <Button htmlType="button" id="order_button" onClick={postOrderIngredient} type="primary" size="medium">
                                 {isLoadingOrder ? "Загрузка..." : "Оформить заказ"}
                             </Button>
                         ): (
                             <Link to="/login">
-                                <Button htmlType="button" type="primary" size="medium">
+                                <Button id="order_button" htmlType="button" type="primary" size="medium">
                                     {isLoadingOrder ? "Загрузка..." : "Оформить заказ"}
                                 </Button>
                             </Link>
