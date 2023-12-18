@@ -15,7 +15,7 @@ interface IOrderDetails {
 const OrderDetails = (props:IOrderDetails) => {
     return (
         <section className={styles.containerOrderDetails}>
-            <h1 className={`text text_type_digits-large pt-9 ${styles.containerTitleOrderDetails}`}>
+            <h1 className={`text text_type_digits-large pt-9 ${styles.containerTitleOrderDetails}`} id="order-number">
                 {props.orderConstructor.order.number}
             </h1>
             <span className={`text text_type_main-medium`}>

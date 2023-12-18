@@ -24,7 +24,7 @@ interface IMyState {
     errorOrderIngredients: boolean;
 }
 
-const initialState:IMyState = {
+export const initialState:IMyState = {
     ingredients: [],
     selectedIngredients: [],
     isLoading: false,

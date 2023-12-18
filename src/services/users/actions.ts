@@ -6,9 +6,9 @@ import {IUser} from "./reducer";
 export const POST_REGISTER_USER_REQUEST:'POST_REGISTER_USER_REQUEST' = 'POST_REGISTER_USER_REQUEST'
 export const POST_REGISTER_USER_SUCCESS:'POST_REGISTER_USER_SUCCESS' = 'POST_REGISTER_USER_SUCCESS'
 export const POST_REGISTER_USER_ERROR:'POST_REGISTER_USER_ERROR' = 'POST_REGISTER_USER_ERROR'
-export const POST_AUTHORIZE_USER_REQUEST:'POST_REGISTER_USER_REQUEST' = 'POST_REGISTER_USER_REQUEST'
-export const POST_AUTHORIZE_USER_SUCCESS:'POST_REGISTER_USER_SUCCESS' = 'POST_REGISTER_USER_SUCCESS'
-export const POST_AUTHORIZE_USER_ERROR:'POST_REGISTER_USER_ERROR' = 'POST_REGISTER_USER_ERROR'
+export const POST_AUTHORIZE_USER_REQUEST:'POST_AUTHORIZE_USER_REQUEST' = 'POST_AUTHORIZE_USER_REQUEST'
+export const POST_AUTHORIZE_USER_SUCCESS:'POST_AUTHORIZE_USER_SUCCESS' = 'POST_AUTHORIZE_USER_SUCCESS'
+export const POST_AUTHORIZE_USER_ERROR:'POST_AUTHORIZE_USER_ERROR' = 'POST_AUTHORIZE_USER_ERROR'
 
 export const GET_USER_REQUEST:"GET_USER_REQUEST" = "GET_USER_REQUEST"
 export const GET_USER_SUCCESS:"GET_USER_SUCCESS" = "GET_USER_SUCCESS"
@@ -186,15 +186,15 @@ export const postAuthorizeUser = (email:string, password:string, navigate:Functi
             // "authorization": `Bearer ${getCookie('token')}`
         },
     }).then(res => {
-            let authToken = res.accessToken.split('Bearer ')[1];
-            console.log(res)
-            if (authToken) {
-                setCookie('token', authToken);
-            }
-            setCookie("refreshToken", res.refreshToken);
-            navigate('/profile')
-            dispatch({type: POST_AUTHORIZE_USER_SUCCESS, payload: res.user})
-        })
+        let authToken = res.accessToken.split('Bearer ')[1];
+        console.log(res)
+        if (authToken) {
+            setCookie('token', authToken);
+        }
+        setCookie("refreshToken", res.refreshToken);
+        navigate('/profile')
+        dispatch({type: POST_AUTHORIZE_USER_SUCCESS, payload: res.user})
+    })
         .catch((err) => {
             dispatch({type: POST_AUTHORIZE_USER_ERROR})
             console.error(err)

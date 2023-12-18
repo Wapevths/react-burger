@@ -55,7 +55,7 @@ interface IMyState {
 }
 
 
-const initialState:IMyState = {
+export const initialState:IMyState = {
     user: [],
 
     isPostRegisterLoading: false,

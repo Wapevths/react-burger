@@ -36,7 +36,7 @@ const CardIngredients = ({ingredient, getIngredient}:ICardIngredientsProps) => {
 
 
     return (
-        <Link to={`ingredients/${ingredient._id}`} state={{ backgroundLocation: location }} className={`${styles.containerCardIngredients}`} ref={dragRef} onClick={getModal}>
+        <Link to={`ingredients/${ingredient._id}`} id="card_ingredient" state={{ backgroundLocation: location }} className={`${styles.containerCardIngredients}`} ref={dragRef} onClick={getModal}>
             <img src={ingredient.image} alt={ingredient.name}/>
             <div className={styles.containerPrice}>
                 <span className={`text text_type_digits-default`}>

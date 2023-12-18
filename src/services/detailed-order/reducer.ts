@@ -12,7 +12,7 @@ interface IDetailedOrderState {
 }
 
 
-const initialState:IDetailedOrderState = {
+export const initialState:IDetailedOrderState = {
     isLoading: false,
     isError: false,
     order: []
